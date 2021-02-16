@@ -1,0 +1,94 @@
+.products {
+  &__header {
+    min-height: 15vh;
+    background-color: $gainsboro;
+  }
+
+  &__wrapper {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    @include breakpoint-up(medium) {
+      flex-direction: row;
+    }
+  }
+
+  &__items {
+    flex: 5;
+    position: relative;
+  }
+}
+
+.sidebar {
+  flex: 1;
+  margin-right: 1.25rem;
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  &__filter {
+    margin: 0;
+    margin-bottom: 1.875rem;
+    h4 {
+      margin-bottom: 0.675rem;
+    }
+  }
+
+  &__searchbar {
+    margin-bottom: 1.875rem;
+  }
+  &__category {
+    &-list {
+      margin-top: 0.675rem;
+      li {
+        color: $slategray;
+        font-size: 14px;
+        font-weight: 400;
+        display: block;
+        cursor: pointer;
+        &:not(:last-child) {
+          margin-bottom: 0.675rem;
+        }
+        &.active {
+          span {
+            border-bottom: 1px solid $slategray;
+          }
+        }
+      }
+    }
+  }
+
+  &__company {
+  }
+  &__colors {
+    span {
+      display: inline-block;
+      &:not(:first-of-type) {
+        position: relative;
+        height: 1.25rem;
+        width: 1.25rem;
+        margin-left: 0.675rem;
+        border-radius: 50%;
+        text-align: center;
+      }
+      svg {
+        position: absolute;
+        left: 0;
+        top: -20%;
+      }
+    }
+  }
+
+  &__price {
+    &-value {
+      color: $slategray;
+      font-weight: 400;
+      font-size: 1rem;
+    }
+  }
+
+  &__shipping {
+    font-weight: 400;
+    margin-bottom: 1.875rem;
+  }
+}

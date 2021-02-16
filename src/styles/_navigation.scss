@@ -1,0 +1,146 @@
+.navigation {
+}
+
+.toolbar {
+  border-bottom: 1px solid #ccc;
+  padding: 0 1.25rem;
+  &__wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 5rem;
+    background-color: transparent;
+  }
+  &__hide-for-mobile {
+    @include breakpoint-down(medium) {
+      display: none;
+    }
+  }
+}
+
+.navigation-items {
+  display: flex;
+  flex-direction: column;
+  padding-left: 1.25rem;
+  @include breakpoint-up(large) {
+    flex-direction: row;
+    align-items: center;
+  }
+}
+
+.navigation-item {
+  position: relative;
+  //transition: ;
+  transition: all 0.3s ease-in-out;
+  &:not(:last-child) {
+    margin-bottom: 2rem;
+    @include breakpoint-up(large) {
+      margin-right: 1.25rem;
+      margin-bottom: 0;
+    }
+  }
+
+  a {
+    color: $darkBlue;
+    font-weight: 400;
+  }
+
+  &:after {
+    position: absolute;
+    content: "";
+    width: 0;
+    bottom: 0;
+    left: 0;
+    height: 2px;
+    background-color: $indianred;
+    transition: all 0.3s ease-in-out;
+  }
+
+  &:hover {
+    padding-left: 1rem;
+    a {
+      color: $indianred;
+    }
+
+    @include breakpoint-up(large) {
+      padding-left: 0;
+    }
+    &:after {
+      @include breakpoint-up(large) {
+        width: 100%;
+      }
+    }
+  }
+}
+
+.navigation-links {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 400;
+  color: $darkBlue;
+  &__item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5625rem;
+    cursor: pointer;
+    &:not(:last-child) {
+      margin-right: 1.25rem;
+    }
+  }
+}
+
+.drawer-toggle {
+  cursor: pointer;
+  position: relative;
+
+  &.active {
+    > span:first-child {
+      transform: rotate(45deg);
+    }
+
+    > span:nth-child(2) {
+      opacity: 0;
+    }
+
+    > span:last-child {
+      transform: rotate(-45deg);
+    }
+  }
+  span {
+    display: block;
+    background-color: #000;
+    width: 26px;
+    height: 2px;
+    transform-origin: 3px 1px;
+    transition: all 300ms ease-in-out;
+
+    &:not(:last-child) {
+      margin-bottom: 5px;
+    }
+  }
+}
+
+.side-drawer {
+  position: fixed;
+  z-index: 10;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+  max-width: 70%;
+  height: 100vh;
+  background-color: #ccc;
+  transform: translateX(100%);
+  transition: transform 0.3s ease-in-out;
+
+  &.open {
+    transform: translateX(0);
+  }
+  @include breakpoint-up(large) {
+    & {
+      display: none;
+    }
+  }
+}

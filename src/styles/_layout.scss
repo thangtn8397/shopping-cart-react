@@ -1,0 +1,9 @@
+.products__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(275px, 1fr));
+  gap: 1.875rem;
+}
+
+.wrapper {
+  padding: 5.375rem 1.25rem;
+}
