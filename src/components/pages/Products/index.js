@@ -1,16 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 import Sidebar from "./Sidebar";
 import ProductItem from "../../ProductItem";
 import AppsOutlinedIcon from "@material-ui/icons/AppsOutlined";
 import ListAltOutlinedIcon from "@material-ui/icons/ListAltOutlined";
+import Backdrop from "../../UI/Backdrop";
+import Modal from "../../UI/Modal";
 
 const Products = () => {
+  const [open, setBackdrop] = useState(false);
   return (
     <div className="products">
+      <Modal isOpen={open} closeModal={() => setBackdrop(false)}>
+        aldfjla
+      </Modal>
       <header className="products__header"></header>
       <div className="products__wrapper container wrapper">
         <Sidebar />
         <div className="products__items">
+          <button onClick={() => setBackdrop(true)}>test backdrop</button>
           <div className="products__items__sort">
             <div className="products__items__sort-left">
               <span>

@@ -1,0 +1,22 @@
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 3%;
+  transform: translateY(-50%);
+  z-index: 12;
+  width: 94%;
+  height: 70%;
+  background-color: #fff;
+  display: none;
+  @include breakpoint-up(medium) {
+    width: 80%;
+    left: 10%;
+  }
+  @include breakpoint-up(large) {
+    width: 70%;
+    left: 15%;
+  }
+  &.open {
+    display: block;
+  }
+}
