@@ -5,7 +5,7 @@ import SideDrawer from "./SideDrawer";
 const Navigation = () => {
   const [openSideDrawer, setOpenSideDrawer] = useState(false);
   return (
-    <header>
+    <header className="navigation">
       <Toolbar
         clickedToggleHandle={() => setOpenSideDrawer(!openSideDrawer)}
         openSideDrawer={openSideDrawer}
