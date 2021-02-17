@@ -21,6 +21,11 @@ const imageData = [
     image:
       "https://dl.airtable.com/.attachments/3a17a255e0967079a573f65ee32cf00d/8b09449b/extra-4.jpeg",
   },
+  {
+    id: 5,
+    image:
+      "https://dl.airtable.com/.attachments/531463b9203cf77dde1a4ba01a155259/74f19d04/extra-1.jpeg",
+  },
 ];
 
 const SliderImage = () => {
@@ -31,6 +36,7 @@ const SliderImage = () => {
       <div className="slider__slide">
         {imageData.map((img) => (
           <img
+            key={img.id}
             src={img.image}
             className="slider__slide-image"
             onClick={() => setImage(img.image)}

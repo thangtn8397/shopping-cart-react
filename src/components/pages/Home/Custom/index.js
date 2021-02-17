@@ -1,5 +1,4 @@
 import React from "react";
-import svg from "../../../../assets/icons8-activity-history-48.png";
 
 const Custom = () => {
   return (
@@ -15,9 +14,7 @@ const Custom = () => {
           </p>
         </div>
         <div className="custom__elements">
-          <article>
-            <span>{svg}</span>
-          </article>
+          <article></article>
         </div>
       </div>
     </section>
