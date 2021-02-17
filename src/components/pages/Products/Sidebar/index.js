@@ -56,6 +56,7 @@ const Sidebar = () => {
         <span onClick={() => setFilterColor("all")}>All</span>
         {colors.map((color) => (
           <span
+            className="select-color"
             key={color}
             style={{ backgroundColor: `${color}` }}
             onClick={() => setFilterColor(color)}

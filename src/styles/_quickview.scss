@@ -1,2 +1,46 @@
 .quickview {
+  &__product {
+    display: flex;
+    flex-direction: column;
+    @include breakpoint-up(large) {
+      flex-direction: row;
+    }
+  }
+
+  &__header {
+    min-height: 4rem;
+    border-bottom: 2px solid #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 1.25rem;
+    width: 100%;
+  }
+
+  &__product {
+    padding: 1.875rem;
+  }
+
+  //&__image {
+  //  flex: 1;
+  //  width: 100%;
+  //img {
+  //  max-width: 100%;
+  //  width: 100%;
+  //  height: auto;
+  //  @include breakpoint-up(medium) {
+  //    height: auto;
+  //  }
+  //  @include breakpoint-up(large) {
+  //  }
+  //}
+  //}
+
+  &__right {
+    flex: 1;
+    margin-top: 1.875rem;
+    @include breakpoint-up(large) {
+      margin-left: 1.875rem;
+    }
+  }
 }

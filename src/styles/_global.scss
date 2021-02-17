@@ -37,6 +37,11 @@ p {
   margin: 0;
 }
 
+img {
+  max-width: 100%;
+  display: block;
+}
+
 button,
 .btn {
   border: none;
@@ -71,4 +76,13 @@ button,
   @include breakpoint-up(large) {
     display: none !important;
   }
+}
+
+.select-color {
+  position: relative;
+  height: 1.25rem;
+  width: 1.25rem;
+  margin-left: 0.675rem;
+  border-radius: 50%;
+  text-align: center;
 }
