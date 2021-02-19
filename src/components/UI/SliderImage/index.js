@@ -2,11 +2,6 @@ import React, { useState } from "react";
 
 const imageData = [
   {
-    id: 1,
-    image:
-      "https://dl.airtable.com/.attachments/531463b9203cf77dde1a4ba01a155259/74f19d04/extra-1.jpeg",
-  },
-  {
     id: 2,
     image:
       "https://dl.airtable.com/.attachments/6ee299084de403c89180798387866dcb/a3e4d19c/extra-2.jpeg",
@@ -28,18 +23,25 @@ const imageData = [
   },
 ];
 
-const SliderImage = () => {
-  const [image, setImage] = useState(imageData[0].image);
+const SliderImage = ({ img }) => {
+  const [image, setImage] = useState(img);
   return (
     <div className="slider">
       <img src={image} alt className="slider__thumb" />
       <div className="slider__slide">
+        <img
+          src={img}
+          className="slider__slide-image"
+          onClick={() => setImage(img)}
+          alt="image"
+        />
         {imageData.map((img) => (
           <img
             key={img.id}
             src={img.image}
             className="slider__slide-image"
             onClick={() => setImage(img.image)}
+            alt="image"
           />
         ))}
       </div>

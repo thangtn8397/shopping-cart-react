@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { category, companys, colors } from "../../../../constants";
+import { category, companies, colors } from "../../../../constants";
 import CheckIcon from "@material-ui/icons/Check";
 
 const Sidebar = () => {
@@ -40,7 +40,7 @@ const Sidebar = () => {
       <div className="sidebar__company sidebar__filter">
         <h4>Company</h4>
         <select name="" id="">
-          {companys.map((company) => (
+          {companies.map((company) => (
             <option
               className="sidebar__company-item"
               key={company}

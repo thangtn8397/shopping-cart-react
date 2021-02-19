@@ -6,7 +6,7 @@ import StarRateIcon from "@material-ui/icons/StarRate";
 import Modal from "../UI/Modal";
 import QuickviewProduct from "../QuickviewProduct";
 
-const ProductItem = () => {
+const ProductItem = ({ product }) => {
   const [openQuickview, setOpenQuickview] = useState(false);
   return (
     <>
@@ -14,9 +14,7 @@ const ProductItem = () => {
         <div
           className="product-item__image"
           style={{
-            backgroundImage: `url(
-            "https://dl.airtable.com/.attachmentThumbnails/65708b701baa3a84883ad48301624b44/2de058af"
-          )`,
+            backgroundImage: `url(${product.image})`,
           }}
         >
           <div className="product-item__actions">
@@ -36,7 +34,7 @@ const ProductItem = () => {
           </div>
         </div>
         <div className="product-item__info">
-          <p className="product-item__name">entertainment center</p>
+          <p className="product-item__name">{product.name}</p>
           <div className="product-item__rate" style={{ color: "#ab7a5f" }}>
             <StarRateIcon />
             <StarRateIcon />
@@ -44,11 +42,16 @@ const ProductItem = () => {
             <StarRateIcon />
             <StarRateIcon />
           </div>
-          <span className="product-item__price">$19.00</span>
+          <span className="product-item__price">
+            ${product.price.toFixed(2)}
+          </span>
         </div>
       </div>
       <Modal isOpen={openQuickview} closeModal={() => setOpenQuickview(false)}>
-        <QuickviewProduct closequickview={() => setOpenQuickview(false)} />
+        <QuickviewProduct
+          closequickview={() => setOpenQuickview(false)}
+          product={product}
+        />
       </Modal>
     </>
   );

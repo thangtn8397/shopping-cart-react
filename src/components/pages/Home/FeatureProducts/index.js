@@ -11,10 +11,12 @@ const FeatureProducts = () => {
           <span></span>
         </div>
         <div className="feature-products__grid">
-          <ProductItem />
-          <ProductItem />
-          <ProductItem />
-          <ProductItem />
+          {
+            // <ProductItem />
+            // <ProductItem />
+            // <ProductItem />
+            // <ProductItem />
+          }
         </div>
         <button className="feature-products__btn btn">
           <Link to="/products">All Products</Link>

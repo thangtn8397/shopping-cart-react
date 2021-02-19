@@ -1,11 +1,23 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import Sidebar from "./Sidebar";
 import ProductItem from "../../ProductItem";
 import AppsOutlinedIcon from "@material-ui/icons/AppsOutlined";
 import ListAltOutlinedIcon from "@material-ui/icons/ListAltOutlined";
+import { connect } from "react-redux";
+import { fetchProducts } from "../../../store/actions/productsAction";
 
-const Products = () => {
-  const [open, setBackdrop] = useState(false);
+const Products = ({ products, onFetchProducts }) => {
+  useEffect(() => {
+    onFetchProducts();
+  }, []);
+
+  const productKeys = products !== null ? Object.keys(products) : [];
+  console.log(productKeys.map((key) => products[key].price));
+  const productsElement =
+    productKeys.length >= 0
+      ? productKeys.map((key) => <ProductItem product={products[key]} />)
+      : null;
+
   return (
     <div className="products">
       <header className="products__header"></header>
@@ -20,7 +32,7 @@ const Products = () => {
               <span>
                 <ListAltOutlinedIcon />
               </span>
-              <p>23 products found</p>
+              <p>{productKeys.length} products found</p>
             </div>
             <hr />
             <div className="products__items__sort-right">
@@ -32,17 +44,22 @@ const Products = () => {
               </select>
             </div>
           </div>
-          <div className=" products__grid">
-            <ProductItem />
-            <ProductItem />
-            <ProductItem />
-            <ProductItem />
-            <ProductItem />
-          </div>
+          <div className=" products__grid">{productsElement}</div>
         </div>
       </div>
     </div>
   );
 };
+const mapStateToProps = (state) => {
+  return {
+    products: state.productsReducer.products,
+  };
+};
 
-export default Products;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onFetchProducts: () => dispatch(fetchProducts()),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Products);

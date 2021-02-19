@@ -2,6 +2,7 @@ import { Switch, Route } from "react-router-dom";
 import Navigation from "./components/Navigation";
 import Home from "./components/pages/Home";
 import Products from "./components/pages/Products";
+import SingleProduct from "./components/pages/SingleProduct";
 import "./styles/style.scss";
 
 function App() {
@@ -12,21 +13,11 @@ function App() {
         <Route exact path="/">
           <Home />
         </Route>
-        <Route path="/products">
+        <Route exact path="/products">
           <Products />
         </Route>
+        <Route path="/products/:id" component={SingleProduct} />
       </Switch>
-      {/**     <Switch>
-        <Route exact path="/">
-          <Home />
-        </Route>
-        <Route exact path="/checkout">
-          <Checkout />
-        </Route>
-        <Route exact path="/auth">
-          <Auth />
-        </Route>
-          </Switch> **/}
     </div>
   );
 }

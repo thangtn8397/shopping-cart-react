@@ -38,6 +38,7 @@
     &-name {
       color: $darkBlue;
       font-weight: 700;
+      text-transform: capitalize;
     }
     &-price {
       color: $indianred;
@@ -75,16 +76,30 @@
     &-sku {
       margin-bottom: 1.25rem;
     }
+    &-brand {
+      text-transform: capitalize;
+    }
   }
 
   &__options {
     display: flex;
     justify-content: flex-start;
     margin-bottom: 1.25rem;
-    &-color {
+    &-colors {
       flex: 1;
+      p {
+        margin-bottom: 0.675rem;
+      }
+      span {
+        &:not(:last-child) {
+          margin-right: 0.675rem;
+        }
+      }
     }
     &-size {
+      p {
+        margin-bottom: 0.675rem;
+      }
       flex: 3;
     }
   }

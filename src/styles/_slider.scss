@@ -5,6 +5,7 @@
     height: 300px;
     margin-bottom: 1.875rem;
     object-fit: cover;
+    border-radius: 0.5rem;
     @include breakpoint-up(medium) {
       height: 600px;
     }
