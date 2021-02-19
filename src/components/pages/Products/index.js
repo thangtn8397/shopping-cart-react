@@ -5,6 +5,8 @@ import AppsOutlinedIcon from "@material-ui/icons/AppsOutlined";
 import ListAltOutlinedIcon from "@material-ui/icons/ListAltOutlined";
 import { connect } from "react-redux";
 import { fetchProducts } from "../../../store/actions/productsAction";
+import Spinner from "../../UI/Spinner";
+import PageHero from "../../PageHero";
 
 const Products = ({ products, onFetchProducts }) => {
   useEffect(() => {
@@ -14,13 +16,15 @@ const Products = ({ products, onFetchProducts }) => {
   const productKeys = products !== null ? Object.keys(products) : [];
   console.log(productKeys.map((key) => products[key].price));
   const productsElement =
-    productKeys.length >= 0
-      ? productKeys.map((key) => <ProductItem product={products[key]} />)
-      : null;
+    productKeys.length > 0 ? (
+      productKeys.map((key) => <ProductItem product={products[key]} />)
+    ) : (
+      <Spinner />
+    );
 
   return (
     <div className="products">
-      <header className="products__header"></header>
+      <PageHero products={true} />
       <div className="products__wrapper container wrapper">
         <Sidebar />
         <div className="products__items">
