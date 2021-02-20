@@ -4,20 +4,24 @@ import ProductItem from "../../ProductItem";
 import AppsOutlinedIcon from "@material-ui/icons/AppsOutlined";
 import ListAltOutlinedIcon from "@material-ui/icons/ListAltOutlined";
 import { connect } from "react-redux";
-import { fetchProducts } from "../../../store/actions/productsAction";
+import { addToCart, fetchProducts } from "../../../store/actions";
 import Spinner from "../../UI/Spinner";
 import PageHero from "../../PageHero";
 
-const Products = ({ products, onFetchProducts }) => {
+const Products = ({ products, onFetchProducts, onAddToCart }) => {
   useEffect(() => {
     onFetchProducts();
   }, []);
 
   const productKeys = products !== null ? Object.keys(products) : [];
-  console.log(productKeys.map((key) => products[key].price));
   const productsElement =
     productKeys.length > 0 ? (
-      productKeys.map((key) => <ProductItem product={products[key]} />)
+      productKeys.map((key) => (
+        <ProductItem
+          product={products[key]}
+          addToCart={() => onAddToCart(products[key])}
+        />
+      ))
     ) : (
       <Spinner />
     );
@@ -57,12 +61,14 @@ const Products = ({ products, onFetchProducts }) => {
 const mapStateToProps = (state) => {
   return {
     products: state.productsReducer.products,
+    items: state.cartReducer.items,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
     onFetchProducts: () => dispatch(fetchProducts()),
+    onAddToCart: (item) => dispatch(addToCart(item)),
   };
 };
 

@@ -5,23 +5,30 @@ import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import StarRateIcon from "@material-ui/icons/StarRate";
 import Modal from "../UI/Modal";
 import QuickviewProduct from "../QuickviewProduct";
+import { useHistory } from "react-router-dom";
 
-const ProductItem = ({ product }) => {
+const ProductItem = ({ product, addToCart }) => {
   const [openQuickview, setOpenQuickview] = useState(false);
+  const history = useHistory();
   return (
     <>
       <div className="product-item">
-        <div
-          className="product-item__image"
-          style={{
-            backgroundImage: `url(${product.image})`,
-          }}
-        >
+        <div className="product-item__wrapper">
+          <div
+            className="product-item__background"
+            onClick={() => history.push(`/products/${product.id}`)}
+            style={{
+              backgroundImage: `url(${product.image})`,
+            }}
+          ></div>
           <div className="product-item__actions">
             <div className="product-item__actions--wishlist">
               <FavoriteBorderIcon />
             </div>
-            <div className="product-item__actions--addtocart">
+            <div
+              className="product-item__actions--addtocart"
+              onClick={addToCart}
+            >
               Add To Cart
               <ShoppingCartIcon />
             </div>

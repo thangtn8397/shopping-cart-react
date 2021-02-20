@@ -90,8 +90,23 @@
     align-items: center;
     font-size: 1.5625rem;
     cursor: pointer;
+    position: relative;
     &:not(:last-child) {
       margin-right: 1.25rem;
+    }
+  }
+  &__cart {
+    position: relative;
+    span {
+      display: block;
+      position: absolute;
+      top: -40%;
+      right: -40%;
+      font-size: 0.75rem;
+      padding: 0.2rem;
+      background-color: red;
+      border-radius: 50%;
+      color: #fff;
     }
   }
 }

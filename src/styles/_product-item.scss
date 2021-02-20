@@ -2,15 +2,8 @@
   position: relative;
   width: 100%;
   height: auto;
-  &__image {
-    background-position: center center;
-    background-size: cover;
-    background-repeat: no-repeat;
-    height: 14.0625rem;
-    border-radius: 0.25rem;
+  &__wrapper {
     position: relative;
-    margin-bottom: 1.25rem;
-    cursor: pointer;
     &:hover {
       .product-item__actions {
         div {
@@ -20,6 +13,16 @@
         }
       }
     }
+  }
+  &__background {
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 14.0625rem;
+    border-radius: 0.25rem;
+    position: relative;
+    margin-bottom: 1.25rem;
+    cursor: pointer;
   }
   &__actions {
     position: absolute;
