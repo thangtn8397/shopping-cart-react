@@ -1,0 +1,116 @@
+.single-product {
+  &__product {
+    padding: 5rem 1.875rem;
+    display: flex;
+    flex-direction: column;
+    @include breakpoint-up(large) {
+      flex-direction: row;
+    }
+  }
+
+  &__header {
+    min-height: 2rem;
+    border-bottom: 2px solid #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 1.25rem;
+    width: 100%;
+  }
+
+  &__image {
+    flex: 1;
+  }
+
+  &__right {
+    flex: 1;
+    margin-top: 1.875rem;
+    @include breakpoint-up(large) {
+      margin-top: 0;
+      margin-left: 1.875rem;
+    }
+  }
+
+  &__info {
+    &-name {
+      color: $darkBlue;
+      font-weight: 700;
+      text-transform: capitalize;
+    }
+    &-price {
+      color: $indianred;
+      margin-bottom: 1.25rem;
+    }
+    &-rate {
+      color: $khaki;
+      margin-bottom: 0.675rem;
+    }
+
+    &-detail {
+      color: $darkBlue;
+      font-size: 0.875rem;
+      line-height: 1.75rem;
+      font-weight: 400;
+      @include breakpoint-up(medium) {
+        font-size: 1rem;
+      }
+      > p {
+        margin-bottom: 1.25rem;
+      }
+    }
+
+    &-sku,
+    &-brand {
+      display: flex;
+      label {
+        font-weight: 600;
+        flex: 1;
+      }
+      p {
+        flex: 3;
+      }
+    }
+    &-sku {
+      margin-bottom: 1.25rem;
+    }
+    &-brand {
+      text-transform: capitalize;
+    }
+  }
+
+  &__options {
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: 1.25rem;
+    &-colors {
+      flex: 1;
+      p {
+        margin-bottom: 0.675rem;
+      }
+      span {
+        &:not(:last-child) {
+          margin-right: 0.675rem;
+        }
+      }
+    }
+    &-size {
+      p {
+        margin-bottom: 0.675rem;
+      }
+      flex: 3;
+    }
+  }
+
+  &__separator {
+    margin: 1.25rem 0;
+  }
+
+  &__addtocart {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.25rem;
+    &-btn {
+      margin: 0 1.25rem;
+    }
+  }
+}
