@@ -1,7 +1,7 @@
 import React from "react";
 import CheckoutSummaryItem from "./CheckoutSummaryItem";
 
-const CheckoutSummary = ({ items }) => {
+const CheckoutSummary = ({ items, open }) => {
   const checkoutSummaryElement =
     items.length > 0 ? (
       <>
@@ -25,7 +25,11 @@ const CheckoutSummary = ({ items }) => {
     ) : (
       <p>No items in cart</p>
     );
-  return <div className="checkout-summary">{checkoutSummaryElement}</div>;
+  return (
+    <div className={open ? "checkout-summary open" : "checkout-summary"}>
+      {checkoutSummaryElement}
+    </div>
+  );
 };
 
 export default CheckoutSummary;

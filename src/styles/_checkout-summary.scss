@@ -1,16 +1,22 @@
 .checkout-summary {
   position: absolute;
   top: 3.5rem;
-  left: 50%;
-  transform: translateX(-50%);
   z-index: 100;
   width: 20rem;
+  right: 0;
   height: auto;
   max-height: 20rem;
   background-color: #fff;
   border: 1px solid #ccc;
   padding: 1.25rem;
   overflow-y: scroll;
+  opacity: 0;
+  transform: translateY(-10%);
+  transition: all 0.3s ease-in-out;
+  &.open {
+    opacity: 1;
+    transform: translateY(0);
+  }
   &-item {
     display: flex;
     align-items: flex-start;
@@ -27,6 +33,12 @@
     }
     &__detail {
       flex: 1;
+    }
+    &__name {
+      text-transform: capitalize;
+    }
+    &__color {
+      margin-right: 0.675rem;
     }
   }
   &__process {
