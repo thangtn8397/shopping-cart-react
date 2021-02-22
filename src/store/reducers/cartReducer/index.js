@@ -30,6 +30,7 @@ export const cartReducer = (state = initialState, action) => {
               ...action.item,
               cartItemId: uuidv4(),
               quantity: action.item.quantity,
+              selectedColor: action.item.selectedColor,
             },
           ],
         };

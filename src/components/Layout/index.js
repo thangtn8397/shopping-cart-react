@@ -1,4 +1,5 @@
 import React from "react";
+import CheckoutSummary from "../CheckoutSummary";
 import Toast from "../UI/Toast";
 
 const Layout = ({ children }) => {

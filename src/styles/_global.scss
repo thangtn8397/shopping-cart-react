@@ -33,6 +33,7 @@ h2,
 h3,
 h4,
 h5,
+h6,
 p {
   margin: 0;
 }
@@ -98,4 +99,7 @@ button,
 
 .wrapper {
   padding: 5.375rem 1.25rem;
+}
+.App {
+  position: relative;
 }
