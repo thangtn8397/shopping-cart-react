@@ -5,10 +5,9 @@ const initialState = {
 };
 
 export const cartReducer = (state = initialState, action) => {
-  const cartItems = state.items;
   switch (action.type) {
     case ADD_TO_CART: {
-      const tempItem = cartItems.filter(
+      const tempItem = state.items.filter(
         (item) =>
           item.id === action.item.id &&
           item.selectedColor === action.item.selectedColor

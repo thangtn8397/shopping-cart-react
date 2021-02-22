@@ -1,25 +1,27 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import SliderImage from "../UI/SliderImage";
 import StarRateIcon from "@material-ui/icons/StarRate";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import Spinner from "../UI/Spinner";
 import CheckIcon from "@material-ui/icons/Check";
+import { selectedItem } from "../../helper/index";
 import { addToCart } from "../../store/actions";
 import { connect } from "react-redux";
 
 const ProductInfo = ({ product, onAddToCart }) => {
   const [selectedColor, setSelectedColor] = useState(null);
   const [selectedQuantity, setSelectedQuantity] = useState(1);
-  const selectedItem = () => {
-    let { category, colors, company, description, ...cartItem } = product;
-
-    cartItem = {
-      ...cartItem,
-      selectedColor: selectedColor,
-      quantity: selectedQuantity,
-    };
-    return cartItem;
-  };
+  useEffect(() => setSelectedColor(product.colors[0]), []);
+  //  const selectedItem = () => {
+  //    let { category, colors, company, description, ...cartItem } = product;
+  //
+  //    cartItem = {
+  //      ...cartItem,
+  //      selectedColor: selectedColor,
+  //      quantity: selectedQuantity,
+  //    };
+  //    return cartItem;
+  //  };
 
   const productInfo = product ? (
     <>
@@ -90,7 +92,11 @@ const ProductInfo = ({ product, onAddToCart }) => {
             <button
               disabled={!selectedColor}
               className="product-info__addtocart-btn"
-              onClick={() => onAddToCart(selectedItem())}
+              onClick={() =>
+                onAddToCart(
+                  selectedItem(product, selectedQuantity, selectedColor)
+                )
+              }
             >
               Add to cart
             </button>

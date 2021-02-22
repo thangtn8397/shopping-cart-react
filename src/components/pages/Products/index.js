@@ -1,13 +1,13 @@
 import React, { useEffect } from "react";
 import Sidebar from "./Sidebar";
 import ProductItem from "../../ProductItem";
-import AppsOutlinedIcon from "@material-ui/icons/AppsOutlined";
-import ListAltOutlinedIcon from "@material-ui/icons/ListAltOutlined";
-import { connect } from "react-redux";
-import { addToCart, fetchProducts } from "../../../store/actions";
 import Spinner from "../../UI/Spinner";
 import PageHero from "../../PageHero";
-
+import AppsOutlinedIcon from "@material-ui/icons/AppsOutlined";
+import ListAltOutlinedIcon from "@material-ui/icons/ListAltOutlined";
+import { selectedItem } from "../../../helper";
+import { connect } from "react-redux";
+import { addToCart, fetchProducts } from "../../../store/actions";
 const Products = ({ products, onFetchProducts, onAddToCart }) => {
   useEffect(() => {
     onFetchProducts();
@@ -19,7 +19,9 @@ const Products = ({ products, onFetchProducts, onAddToCart }) => {
       productKeys.map((key) => (
         <ProductItem
           product={products[key]}
-          addToCart={() => onAddToCart(products[key])}
+          addToCart={() =>
+            onAddToCart(selectedItem(products[key], 1, products[key].colors[0]))
+          }
         />
       ))
     ) : (
