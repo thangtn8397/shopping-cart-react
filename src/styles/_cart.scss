@@ -1,0 +1,148 @@
+.cart {
+  &__header {
+    display: none;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 1.25rem;
+    @include breakpoint-up(medium) {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr auto;
+      column-gap: 1.25rem;
+      h5 {
+        font-weight: 600;
+        color: $darkBlue;
+        justify-self: center;
+      }
+    }
+    > span {
+      width: 1rem;
+      height: 1rem;
+    }
+  }
+  &-item {
+    display: grid;
+    grid-template-columns: 200px auto auto auto;
+    border-bottom: 1px solid #ccc;
+    padding: 2rem 0;
+    column-gap: 1.25rem;
+    @include breakpoint-up(medium) {
+      grid-template-columns: 2fr 1fr 1fr 1fr auto;
+    }
+    > div:not(:first-child) {
+      align-self: center;
+      justify-self: center;
+    }
+    &__detail {
+      display: flex;
+      align-items: center;
+      img {
+        height: 80px;
+        width: 130px;
+        border-radius: 0.25rem;
+        margin-right: 1.25rem;
+      }
+    }
+    &__name {
+      color: $darkBlue;
+      text-transform: capitalize;
+    }
+    &__color {
+      display: flex;
+      align-items: center;
+      font-size: 14px;
+      font-weight: 400;
+      color: $darkBlue;
+      span {
+        margin-left: 0.675rem;
+      }
+    }
+    &__priceSmall {
+      @include breakpoint-up(medium) {
+        display: none;
+      }
+    }
+    &__price {
+      color: $indianred;
+      font-weight: 400;
+      @include breakpoint-down(small) {
+        display: none;
+      }
+    }
+    &__quantity {
+      border: 1px solid #ccc;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: 600;
+      padding: 0.675rem 0;
+      > p {
+        margin: 0 0.675rem;
+      }
+      > span {
+        cursor: pointer;
+      }
+    }
+    &__subtotal {
+      color: $darkBlue;
+      font-weight: 400;
+    }
+  }
+  &__button {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1.875rem;
+    > button {
+      text-transform: capitalize;
+    }
+  }
+  &__bill {
+    display: flex;
+    justify-content: center;
+    margin-top: 1.875rem;
+    @include breakpoint-up(medium) {
+      justify-content: flex-end;
+    }
+    &-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    &-form {
+      border: 1px solid #ccc;
+      width: 25rem;
+      height: 10rem;
+      padding: 1.25rem;
+      border-radius: 0.25rem;
+    }
+    &-element {
+      color: $darkBlue;
+      display: flex;
+      font-size: 15px;
+      &:first-child {
+        margin-bottom: 0.675rem;
+      }
+      label {
+        font-weight: 600;
+        flex: 1;
+      }
+    }
+    &-ordertotal {
+      display: flex;
+      padding-top: 1.875rem;
+      margin-top: 1.25rem;
+      border-top: 1px solid #ccc;
+      color: $darkBlue;
+      label {
+        flex: 1;
+        font-size: 1.375rem;
+        font-weight: 600;
+      }
+      p {
+        font-weight: 600;
+      }
+    }
+    &-btnProceed {
+      margin-top: 1.25rem;
+      width: 100%;
+    }
+  }
+}

@@ -1,7 +1,11 @@
 import React from "react";
+import { useHistory } from "react-router-dom";
+import { getTotalPrice } from "../../../helper";
 import CheckoutSummaryItem from "./CheckoutSummaryItem";
 
 const CheckoutSummary = ({ items, open }) => {
+  const history = useHistory();
+  const total = items ? getTotalPrice(items) : 0;
   const checkoutSummaryElement =
     items.length > 0 ? (
       <>
@@ -11,9 +15,9 @@ const CheckoutSummary = ({ items, open }) => {
           ))}
           <div className="checkout-summary__process">
             <h4 className="checkout-summary__total">
-              Total<span>$100</span>
+              Total<span>${total}</span>
             </h4>
-            <button>
+            <button onClick={() => history.push("/cart")}>
               <span>view cart</span>
             </button>
             <button>
