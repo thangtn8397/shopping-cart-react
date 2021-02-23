@@ -1,13 +1,32 @@
 import React from "react";
 import PageHero from "../../PageHero";
 import CartItem from "./CartItem";
+import { getTotalPrice } from "../../../helper";
 import { connect } from "react-redux";
+import ShoppingCartOutlinedIcon from "@material-ui/icons/ShoppingCartOutlined";
+import { Link } from "react-router-dom";
+import {
+  incrementQuantity,
+  decrementQuantity,
+  clearCart,
+  removeItemInCart,
+} from "../../../store/actions";
 
-function Cart({ cartItems }) {
-  return (
-    <div className="cart">
-      <PageHero products={false} link="Cart" />
-      <div className="cart__wrapper container wrapper">
+function Cart({
+  cartItems,
+  onIncrementQuantity,
+  onDecrementQuantity,
+  onRemoveItemInCart,
+  onClearCart,
+}) {
+  const totalPrice = getTotalPrice(cartItems);
+  let shippingFee = 0;
+  let cartElement = null;
+  if (cartItems.length > 0) {
+    const temp = cartItems.filter((item) => item.shipping === undefined);
+    shippingFee = temp.reduce((fee, item) => fee + 5.4, 0);
+    cartElement = (
+      <>
         <div className="cart__header">
           <h5>Item</h5>
           <h5>Price</h5>
@@ -16,26 +35,33 @@ function Cart({ cartItems }) {
           <span></span>
         </div>
         {cartItems.map((item) => (
-          <CartItem cartItem={item} />
+          <CartItem
+            cartItem={item}
+            clickedAddIcon={() => onIncrementQuantity(item.cartItemId)}
+            clickedRemoveIcon={() => onDecrementQuantity(item.cartItemId)}
+            removeItem={() => onRemoveItemInCart(item.cartItemId)}
+          />
         ))}
         <article className="cart__button">
-          <button>Continue shopping</button>
-          <button>clear shopping cart</button>
+          <button>
+            <Link to="/products">Continue shopping</Link>
+          </button>
+          <button onClick={() => onClearCart()}>clear shopping cart</button>
         </article>
         <article className="cart__bill">
           <div className="cart__bill-wrapper">
             <div className="cart__bill-form">
               <div className="cart__bill-element">
                 <label>Subtotal:</label>
-                <p>$2379</p>
+                <p>${totalPrice}</p>
               </div>
               <div className="cart__bill-element">
                 <label>Shipping Fee:</label>
-                <p>$2379</p>
+                <p>${shippingFee.toFixed(2)}</p>
               </div>
               <div className="cart__bill-ordertotal">
                 <label>Order Total: </label>
-                <p>$1231</p>
+                <p>${totalPrice + shippingFee}</p>
               </div>
             </div>
             <button className="cart__bill-btnProceed">
@@ -43,7 +69,26 @@ function Cart({ cartItems }) {
             </button>
           </div>
         </article>
+      </>
+    );
+  } else {
+    cartElement = (
+      <div className="cart__noItems">
+        <span className="cart__noItems-icon">
+          <ShoppingCartOutlinedIcon />
+        </span>
+        <p className="cart__noItems-text">Whoops...Nothing in here!!!</p>
+        <Link className="btn" to="/products">
+          Shop now
+        </Link>
       </div>
+    );
+  }
+
+  return (
+    <div className="cart">
+      <PageHero products={false} link="Cart" />
+      <div className="cart__wrapper container wrapper">{cartElement}</div>
     </div>
   );
 }
@@ -53,4 +98,12 @@ const mapStateToProps = (state) => {
     cartItems: state.cartReducer.items,
   };
 };
-export default connect(mapStateToProps)(Cart);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onIncrementQuantity: (id) => dispatch(incrementQuantity(id)),
+    onDecrementQuantity: (id) => dispatch(decrementQuantity(id)),
+    onRemoveItemInCart: (id) => dispatch(removeItemInCart(id)),
+    onClearCart: () => dispatch(clearCart()),
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(Cart);

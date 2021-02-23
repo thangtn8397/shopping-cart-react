@@ -77,21 +77,34 @@
       > p {
         margin: 0 0.675rem;
       }
-      > span {
-        cursor: pointer;
+      > button {
+        background-color: transparent;
+        color: $darkBlue;
       }
     }
     &__subtotal {
       color: $darkBlue;
       font-weight: 400;
     }
+    &__remove {
+      cursor: pointer;
+    }
   }
   &__button {
     display: flex;
     justify-content: space-between;
     margin-top: 1.875rem;
+    &--back {
+      text-transform: capitalize;
+    }
     > button {
       text-transform: capitalize;
+      a {
+        color: #fff;
+      }
+      &:last-child {
+        background-color: $darkBlue;
+      }
     }
   }
   &__bill {
@@ -143,6 +156,23 @@
     &-btnProceed {
       margin-top: 1.25rem;
       width: 100%;
+    }
+  }
+  &__noItems {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    &-icon {
+      svg {
+        font-size: 20rem;
+        font-weight: 100;
+      }
+    }
+    &-text {
+      font-size: 2rem;
+      font-weight: 400;
+      color: $darkBlue;
+      margin-bottom: 1.875rem;
     }
   }
 }

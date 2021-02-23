@@ -1,3 +1,9 @@
 export { fetchProducts } from "./productsAction";
 
-export { addToCart } from "./cartAction";
+export {
+  addToCart,
+  incrementQuantity,
+  decrementQuantity,
+  clearCart,
+  removeItemInCart,
+} from "./cartAction";

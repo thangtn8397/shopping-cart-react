@@ -1,7 +1,9 @@
 import React from "react";
 import CloseIcon from "@material-ui/icons/Close";
+import { removeItemInCart } from "../../../../store/actions";
+import { connect } from "react-redux";
 
-const CheckoutSummaryItem = ({ cartItem }) => {
+const CheckoutSummaryItem = ({ cartItem, onRemoveItem }) => {
   return (
     <li className="checkout-summary-item">
       <img
@@ -27,9 +29,15 @@ const CheckoutSummaryItem = ({ cartItem }) => {
         </h6>
         <span className="checkout-summary-item__price">${cartItem.price}</span>
       </div>
-      <CloseIcon />
+      <CloseIcon onClick={() => onRemoveItem(cartItem.cartItemId)} />
     </li>
   );
 };
 
-export default CheckoutSummaryItem;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onRemoveItem: (id) => dispatch(removeItemInCart(id)),
+  };
+};
+
+export default connect(null, mapDispatchToProps)(CheckoutSummaryItem);

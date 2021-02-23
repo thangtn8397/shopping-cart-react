@@ -1,4 +1,10 @@
-import { ADD_TO_CART } from "../../../constants/index";
+import {
+  ADD_TO_CART,
+  REMOVE_ITEM_IN_CART,
+  CLEAR_CART,
+  INCREMENT_QUANTITY,
+  DECREMENT_QUANTITY,
+} from "../../../constants/index";
 import { v4 as uuidv4 } from "uuid";
 const initialState = {
   items: [],
@@ -35,6 +41,34 @@ export const cartReducer = (state = initialState, action) => {
         };
       }
     }
+    case REMOVE_ITEM_IN_CART:
+      return {
+        ...state,
+        items: state.items.filter((item) => item.cartItemId !== action.id),
+      };
+    case CLEAR_CART:
+      return {
+        ...state,
+        items: [],
+      };
+    case INCREMENT_QUANTITY:
+      return {
+        ...state,
+        items: state.items.map((item) =>
+          item.cartItemId === action.id
+            ? { ...item, quantity: item.quantity + 1 }
+            : item
+        ),
+      };
+    case DECREMENT_QUANTITY:
+      return {
+        ...state,
+        items: state.items.map((item) =>
+          item.cartItemId === action.id
+            ? { ...item, quantity: item.quantity - 1 }
+            : item
+        ),
+      };
     default:
       return state;
   }

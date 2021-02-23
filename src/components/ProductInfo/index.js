@@ -4,6 +4,8 @@ import StarRateIcon from "@material-ui/icons/StarRate";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import Spinner from "../UI/Spinner";
 import CheckIcon from "@material-ui/icons/Check";
+import AddIcon from "@material-ui/icons/Add";
+import RemoveIcon from "@material-ui/icons/Remove";
 import { selectedItem } from "../../helper/index";
 import { addToCart } from "../../store/actions";
 import { connect } from "react-redux";
@@ -12,17 +14,6 @@ const ProductInfo = ({ product, onAddToCart }) => {
   const [selectedColor, setSelectedColor] = useState(null);
   const [selectedQuantity, setSelectedQuantity] = useState(1);
   useEffect(() => setSelectedColor(product.colors[0]), []);
-  //  const selectedItem = () => {
-  //    let { category, colors, company, description, ...cartItem } = product;
-  //
-  //    cartItem = {
-  //      ...cartItem,
-  //      selectedColor: selectedColor,
-  //      quantity: selectedQuantity,
-  //    };
-  //    return cartItem;
-  //  };
-
   const productInfo = product ? (
     <>
       <div className="product-info__image">
@@ -81,13 +72,13 @@ const ProductInfo = ({ product, onAddToCart }) => {
           </div>
           <div className="product-info__addtocart">
             <div className="product-info__addtocart-quantity">
-              <span onClick={() => setSelectedQuantity(selectedQuantity - 1)}>
-                -
-              </span>
+              <button onClick={() => setSelectedQuantity(selectedQuantity - 1)}>
+                <RemoveIcon />
+              </button>
               <span>{selectedQuantity}</span>
-              <span onClick={() => setSelectedQuantity(selectedQuantity + 1)}>
-                +
-              </span>
+              <button onClick={() => setSelectedQuantity(selectedQuantity + 1)}>
+                <AddIcon />
+              </button>
             </div>
             <button
               disabled={!selectedColor}

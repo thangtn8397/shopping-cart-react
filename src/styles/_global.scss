@@ -103,3 +103,7 @@ button,
 .App {
   position: relative;
 }
+.toast {
+  position: fixed;
+  z-index: 10;
+}

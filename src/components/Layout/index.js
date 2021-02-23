@@ -1,12 +1,11 @@
 import React from "react";
-import CheckoutSummary from "../CheckoutSummary";
-import Toast from "../UI/Toast";
-
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const Layout = ({ children }) => {
   return (
     <>
       {children}
-      <Toast />
+      <ToastContainer autoClose={2000} />
     </>
   );
 };
