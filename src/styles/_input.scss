@@ -1,0 +1,40 @@
+.input {
+  width: 100%;
+  padding: 1.25rem 0.625rem;
+  position: relative;
+  box-sizing: border-box;
+  &__inputElement {
+    position: relative;
+    z-index: 2;
+    outline: none;
+    border: none;
+    border-bottom: 1px solid #ccc;
+    color: #fff;
+    background-color: transparent;
+    padding: 6px 10px;
+    display: block;
+    width: 100%;
+    font-size: 13px;
+    &.invalid {
+      border-bottom: 1px solid red;
+    }
+    &:focus,
+    &.touched {
+      outline: none;
+      & + label {
+        transform: translateY(-150%);
+      }
+    }
+  }
+  label {
+    font-weight: 700;
+    color: $darkBlue;
+    margin-bottom: 1.25rem;
+    position: absolute;
+    z-index: 1;
+    bottom: 0;
+    transition: transform 0.3s ease;
+    text-transform: uppercase;
+    font-size: 13px;
+  }
+}

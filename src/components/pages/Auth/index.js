@@ -17,13 +17,20 @@ const Auth = () => {
       <PageHero />
       <section className="container wrapper">
         <form className="auth__form">
+          <div className="auth__switch">
+            <h3>Register</h3>
+            <span></span>
+            <h3>Login</h3>
+          </div>
           {formElementsArray.map((element) => (
             <Input
               elementType={element.config.elementType}
               elementConfig={element.config.elementConfig}
               value={element.config.value}
+              label={element.config.label}
             />
           ))}
+          <button className="auth__form-btn">Login</button>
         </form>
       </section>
     </div>

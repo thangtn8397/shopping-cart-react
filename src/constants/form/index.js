@@ -1,15 +1,15 @@
 export const authFormConfig = {
   email: {
     elementType: "input",
+    label: "Email",
     elementConfig: {
-      placeholder: "Email",
       type: "text",
     },
   },
   password: {
     elementType: "input",
+    label: "Password",
     elementConfig: {
-      placeholder: "Password",
       type: "password",
     },
   },
