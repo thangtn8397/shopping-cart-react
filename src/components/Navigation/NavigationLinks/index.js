@@ -4,6 +4,7 @@ import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import AccountBoxIcon from "@material-ui/icons/AccountBox";
 import { connect } from "react-redux";
 import { useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const NavigationLinks = ({ items }) => {
   const [openCheckoutSummary, setOpenCheckoutSummary] = useState(false);
@@ -11,7 +12,9 @@ const NavigationLinks = ({ items }) => {
   return (
     <div className="navigation-links">
       <div className="navigation-links__item">
-        <AccountBoxIcon />
+        <Link to="/auth">
+          <AccountBoxIcon />
+        </Link>
       </div>
       <div className="navigation-links__item navigation-links__cart">
         <ShoppingCartIcon

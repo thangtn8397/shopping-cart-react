@@ -12,7 +12,7 @@ export const addToCart = (item) => {
       type: ADD_TO_CART,
       item,
     });
-    toast.success("Added To Cart", {
+    toast.success("Added to cart", {
       position: toast.POSITION.BOTTOM_LEFT,
     });
   };

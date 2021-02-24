@@ -85,16 +85,20 @@
   font-weight: 400;
   color: $darkBlue;
   &__item {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    //display: flex;
+    //justify-content: center;
+    //align-items: center;
     font-size: 1.5625rem;
     cursor: pointer;
     position: relative;
     &:not(:last-child) {
       margin-right: 1.25rem;
     }
+    a {
+      color: $darkBlue;
+    }
   }
+
   &__cart {
     position: relative;
     > span {
