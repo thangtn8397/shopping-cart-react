@@ -7,3 +7,5 @@ export {
   clearCart,
   removeItemInCart,
 } from "./cartAction";
+
+export { auth, authFailed, authSuccess } from "./authAction";
