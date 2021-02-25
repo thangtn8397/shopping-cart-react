@@ -14,3 +14,4 @@ export const DECREMENT_QUANTITY = "DECREMENT_QUANTITY";
 
 export const AUTH_SUCCESS = "AUTH_SUCCESS";
 export const AUTH_FAILED = "AUTH_FAILED";
+export const AUTH_START = "AUTH_START";
