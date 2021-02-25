@@ -28,3 +28,71 @@ export const authFormConfig = {
     },
   },
 };
+
+export const userInfoAccount = {
+  firstName: {
+    elementType: "input",
+    label: "First Name",
+    elementConfig: {
+      type: "text",
+    },
+    value: "",
+    valid: false,
+    touched: false,
+    rules: {},
+  },
+  lastName: {
+    elementType: "input",
+    label: "Last Name",
+    elementConfig: {
+      type: "text",
+    },
+    value: "",
+    valid: false,
+    touched: false,
+    rules: {},
+  },
+  phoneNumber: {
+    elementType: "input",
+    label: "Phone number",
+    elementConfig: {
+      type: "text",
+    },
+    value: "",
+    valid: false,
+    touched: false,
+    rules: {
+      required: true,
+      isNumeric: true,
+    },
+  },
+};
+
+export const updatePasswordForm = {
+  password: {
+    elementType: "input",
+    label: "Password",
+    elementConfig: {
+      type: "text",
+    },
+    value: "",
+    valid: false,
+    touched: false,
+    rules: {
+      minLength: 6,
+    },
+  },
+  passwordConfirm: {
+    elementType: "input",
+    label: "Password confirm",
+    elementConfig: {
+      type: "text",
+    },
+    value: "",
+    valid: false,
+    touched: false,
+    rules: {
+      minLength: 6,
+    },
+  },
+};

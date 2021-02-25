@@ -7,47 +7,51 @@ import { checkValidityInput } from "../../../helper";
 import { connect } from "react-redux";
 import { auth } from "../../../store/actions/authAction";
 import { Redirect } from "react-router-dom";
+import { useForm } from "../../../hooks/useForm";
 
 const Auth = ({ onAuth, loading, isAuthenticated, error }) => {
   const [isLogin, setIsLogin] = useState(true);
-  const [authForm, setAuthForm] = useState({
-    form: authFormConfig,
-    formValid: true,
-  });
-
-  const formElementsArray = [];
-  for (let key in authForm.form) {
-    formElementsArray.push({
-      id: key,
-      config: authForm.form[key],
-    });
-  }
-
-  const inputChangedHandler = (event, key) => {
-    const tempForm = { ...authForm.form };
-    const tempValue = { ...tempForm[key] };
-    tempValue.value = event.target.value;
-    tempValue.valid = checkValidityInput(event.target.value, tempValue.rules);
-    tempValue.touched = true;
-    tempForm[key] = tempValue;
-    let formValid = true;
-    for (let key in authForm.form) {
-      formValid = authForm.form[key].valid && formValid;
-    }
-    setAuthForm({ form: tempForm, formValid: formValid });
-  };
-
+  const { formElementsArray, inputChangedHandler, formData } = useForm(
+    authFormConfig
+  );
+  //  const [authForm, setAuthForm] = useState({
+  //    form: authFormConfig,
+  //    formValid: true,
+  //  });
+  //
+  //  const formElementsArray = [];
+  //  for (let key in authForm.form) {
+  //    formElementsArray.push({
+  //      id: key,
+  //      config: authForm.form[key],
+  //    });
+  //  }
+  //
+  //  const inputChangedHandler = (event, key) => {
+  //    const tempForm = { ...authForm.form };
+  //    const tempValue = { ...tempForm[key] };
+  //    tempValue.value = event.target.value;
+  //    tempValue.valid = checkValidityInput(event.target.value, tempValue.rules);
+  //    tempValue.touched = true;
+  //    tempForm[key] = tempValue;
+  //    let formValid = true;
+  //    for (let key in authForm.form) {
+  //      formValid = authForm.form[key].valid && formValid;
+  //    }
+  //    setAuthForm({ form: tempForm, formValid: formValid });
+  //  };
+  //
   const submitFormHandler = (e) => {
     e.preventDefault();
-    const email = authForm.form.email.value;
-    const password = authForm.form.password.value;
+    const email = formData.formDetail.email.value;
+    const password = formData.formDetail.password.value;
     onAuth(email, password, isLogin);
   };
 
   const errorMessage = error ? (
     <p className="auth__form-error">{error.message}</p>
   ) : null;
-  const authRedirect = isAuthenticated ? <Redirect to="/account" /> : null;
+  const authRedirect = isAuthenticated ? <Redirect to="/my-account" /> : null;
 
   const formElements = !loading ? (
     <div className="auth__form-wrapper">
@@ -83,7 +87,7 @@ const Auth = ({ onAuth, loading, isAuthenticated, error }) => {
       <button
         type="submit"
         className="auth__form-btn"
-        disabled={authForm.formValid}
+        disabled={formData.formValid}
       >
         {isLogin ? "Login" : "Register"}
       </button>

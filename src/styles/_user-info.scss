@@ -1,0 +1,60 @@
+.userInfo {
+  &__wrapper {
+    width: 60%;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  &__password {
+    &-wrapper {
+      visibility: hidden;
+      opacity: 0;
+      transform: translateX(50%);
+      transition: all 0.3s ease-in-out;
+      > input {
+        display: block;
+      }
+      &.show {
+        visibility: visible;
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+  }
+}
+.userInfoItem {
+  margin: 0 auto;
+
+  &__title {
+    text-transform: uppercase;
+    font-size: 0.9375rem;
+    font-weight: 400;
+    color: $darkBlue;
+    margin: 1.875rem 0;
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+    &:hover {
+      color: $indianred;
+    }
+  }
+  &__content {
+    height: 0;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-20%);
+    transition: all 0.3s ease-in-out;
+    &.show {
+      height: auto;
+      opacity: 1;
+      visibility: visible;
+      padding: 1.25rem;
+      transform: translateY(0);
+    }
+    > h4 {
+      text-align: center;
+      color: $darkBlue;
+      font-weight: 400;
+    }
+  }
+}
