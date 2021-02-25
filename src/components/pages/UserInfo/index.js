@@ -1,21 +1,16 @@
 import React, { useState } from "react";
 import PageHero from "../../PageHero";
-import Input from "../../UI/Input";
 import UserInfoItem from "./UserInfoItem";
+import Wishlist from "./Wishlist";
 import { updatePasswordForm, userInfoAccount } from "../../../constants/form";
 
 const UserInfo = () => {
   const [editing, setEditing] = useState(1);
-
-  return (
-    <div className="userInfo">
-      <PageHero products={false} link="My Account" />
-      <div className="userInfo__wrapper container wrapper">
-        <div className="userInfo__switch switch">
-          <h3>My Account</h3>
-          <span></span>
-          <h3>Wish List</h3>
-        </div>
+  const [active, setActive] = useState("account");
+  let userInfoElement = null;
+  if (active === "account") {
+    userInfoElement = (
+      <>
         <UserInfoItem
           id={1}
           title="Edit your information account"
@@ -37,6 +32,27 @@ const UserInfo = () => {
           show={editing}
           clickedTitleHandler={() => setEditing(3)}
         />
+      </>
+    );
+  }
+  if (active == "wishlist") {
+    userInfoElement = <Wishlist />;
+  }
+  if (active === "order") {
+    userInfoElement = <div>order history</div>;
+  }
+  return (
+    <div className="userInfo">
+      <PageHero products={false} link="My Account" />
+      <div className="userInfo__wrapper container wrapper">
+        <div className="userInfo__switch switch">
+          <h3 onClick={() => setActive("account")}>My Account</h3>
+          <span></span>
+          <h3 onClick={() => setActive("wishlist")}>Wish List</h3>
+          <span></span>
+          <h3 onClick={() => setActive("order")}>Order History</h3>
+        </div>
+        {userInfoElement}
       </div>
     </div>
   );

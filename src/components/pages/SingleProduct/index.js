@@ -11,7 +11,7 @@ const SingleProduct = ({ onFetchSingleProduct, product, loading }) => {
     console.log("render");
     onFetchSingleProduct(id);
   }, []);
-  const productInfo = loading ? null : <ProductInfo product={product} />;
+  const productInfo = !product ? null : <ProductInfo product={product} />;
 
   return (
     <>

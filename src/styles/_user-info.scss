@@ -1,7 +1,8 @@
 .userInfo {
   &__wrapper {
-    width: 60%;
-    max-width: 600px;
+    width: 100%;
+    max-width: 800px;
+    min-width: 500px;
     margin: 0 auto;
   }
 
@@ -42,19 +43,84 @@
     height: 0;
     opacity: 0;
     visibility: hidden;
-    transform: translateY(-20%);
     transition: all 0.3s ease-in-out;
     &.show {
       height: auto;
       opacity: 1;
       visibility: visible;
       padding: 1.25rem;
-      transform: translateY(0);
     }
     > h4 {
       text-align: center;
       color: $darkBlue;
       font-weight: 400;
+    }
+  }
+}
+.wishlist {
+  padding: 1.25rem;
+  &-item {
+    display: block;
+    text-align: center;
+    @include breakpoint-up(medium) {
+      & {
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        column-gap: 1.25rem;
+        align-items: center;
+        justify-content: center;
+      }
+    }
+    &__removeIcon {
+      display: none;
+      cursor: pointer;
+      @include breakpoint-up(medium) {
+        display: block;
+      }
+    }
+    &__removeText {
+      cursor: pointer;
+      @include breakpoint-up(medium) {
+        display: none;
+      }
+    }
+    &__detail {
+      margin-bottom: 0.675rem;
+      color: $darkBlue;
+      img {
+        height: 225px;
+        width: 100%;
+        margin-bottom: 0.675rem;
+        cursor: pointer;
+      }
+      h4 {
+        text-transform: capitalize;
+      }
+      p {
+        font-weight: 400;
+      }
+      @include breakpoint-up(medium) {
+        & {
+          display: flex;
+          text-align: left;
+          img {
+            width: 200px;
+            height: 100px;
+            margin-right: 1.25rem;
+          }
+          h4 {
+            margin-bottom: 0.675rem;
+          }
+        }
+      }
+    }
+    button {
+      width: 100%;
+      margin-bottom: 0.675rem;
+      @include breakpoint-up(medium) {
+        align-self: center;
+        justify-self: center;
+      }
     }
   }
 }

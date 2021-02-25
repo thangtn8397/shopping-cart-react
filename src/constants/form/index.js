@@ -62,8 +62,9 @@ export const userInfoAccount = {
     valid: false,
     touched: false,
     rules: {
-      required: true,
       isNumeric: true,
+      minLength: 10,
+      maxLength: 10,
     },
   },
 };

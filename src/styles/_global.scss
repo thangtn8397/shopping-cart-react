@@ -108,6 +108,10 @@ button,
   display: flex;
   justify-content: center;
   margin-bottom: 2rem;
+  font-size: 15px;
+  @include breakpoint-up(large) {
+    font-size: 1.25rem;
+  }
   > span {
     display: block;
     width: 2px;
