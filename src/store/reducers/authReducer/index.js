@@ -1,4 +1,9 @@
-import { AUTH_FAILED, AUTH_SUCCESS, AUTH_START } from "../../../constants";
+import {
+  AUTH_FAILED,
+  AUTH_SUCCESS,
+  AUTH_START,
+  AUTH_LOGOUT,
+} from "../../../constants";
 const initialState = {
   token: null,
   userId: null,
@@ -30,6 +35,12 @@ export const authReducer = (state = initialState, action) => {
         loading: false,
       };
     }
+    case AUTH_LOGOUT:
+      return {
+        ...state,
+        token: null,
+        userId: null,
+      };
     default: {
       return state;
     }

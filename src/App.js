@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Switch, Route } from "react-router-dom";
 import Navigation from "./components/Navigation";
 import Home from "./components/pages/Home";
@@ -8,8 +9,14 @@ import SingleProduct from "./components/pages/SingleProduct";
 import Layout from "./components/Layout";
 import "./styles/style.scss";
 import UserInfo from "./components/pages/UserInfo";
+import { connect } from "react-redux";
+import { checkAuthState } from "./store/actions";
 
-function App() {
+function App({ onCheckAuthState }) {
+  useEffect(() => {
+    console.log("redner");
+    onCheckAuthState();
+  }, []);
   return (
     <Layout>
       <div className="App">
@@ -26,5 +33,10 @@ function App() {
     </Layout>
   );
 }
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onCheckAuthState: () => dispatch(checkAuthState()),
+  };
+};
 
-export default App;
+export default connect(null, mapDispatchToProps)(App);

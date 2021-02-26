@@ -8,4 +8,10 @@ export {
   removeItemInCart,
 } from "./cartAction";
 
-export { auth, authFailed, authSuccess } from "./authAction";
+export {
+  auth,
+  authFailed,
+  authSuccess,
+  logout,
+  checkAuthState,
+} from "./authAction";
