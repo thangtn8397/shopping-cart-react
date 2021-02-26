@@ -1,15 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
 import WishlistItem from "./WishlistItem";
+import { connect } from "react-redux";
 
-const Wishlist = () => {
+const Wishlist = ({ wishlist }) => {
   return (
     <div className="wishlist">
-      <WishlistItem />
-      <WishlistItem />
-      <WishlistItem />
-      <WishlistItem />
+      {wishlist.map((item) => (
+        <WishlistItem key={item.id} item={item} />
+      ))}
     </div>
   );
 };
+const mapStateToProps = (state) => {
+  return {
+    wishlist: state.wishlistReducer.items,
+  };
+};
 
-export default Wishlist;
+export default connect(mapStateToProps)(Wishlist);

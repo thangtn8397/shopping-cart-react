@@ -40,6 +40,7 @@ export const authReducer = (state = initialState, action) => {
         ...state,
         token: null,
         userId: null,
+        error: null,
       };
     default: {
       return state;

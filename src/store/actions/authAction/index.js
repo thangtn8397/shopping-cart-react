@@ -22,7 +22,6 @@ export const auth = (email, password, isLogin) => {
         const expirationDate = new Date(
           new Date().getTime() + res.data.expiresIn * 1000
         );
-        console.log(expirationDate);
         localStorage.setItem("token", res.data.idToken);
         localStorage.setItem("localId", res.data.localId);
         localStorage.setItem("expirationDate", expirationDate);

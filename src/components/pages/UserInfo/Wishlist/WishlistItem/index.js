@@ -2,7 +2,7 @@ import React from "react";
 import CloseIcon from "@material-ui/icons/Close";
 import { Link } from "react-router-dom";
 
-const WishlistItem = () => {
+const WishlistItem = ({ item }) => {
   return (
     <div className="wishlist-item">
       <span className="wishlist-item__removeIcon">
@@ -10,11 +10,15 @@ const WishlistItem = () => {
       </span>
       <div className="wishlist-item__detail">
         <Link to="/products">
-          <img src="https://dl.airtable.com/.attachmentThumbnails/1e222e36e935db2695c33e3d30c2e482/91b542e0" />
+          <img src={item.image} />
         </Link>
         <div>
-          <h4>emperor bed</h4>
-          <p>$400</p>
+          <h4>{item.name}</h4>
+          <p>${item.price}</p>
+          <span
+            className="select-color"
+            style={{ backgroundColor: `${item.selectedColor}` }}
+          ></span>
         </div>
       </div>
       <button>Add to cart</button>

@@ -15,3 +15,5 @@ export {
   logout,
   checkAuthState,
 } from "./authAction";
+
+export * from "./wishlistAction";

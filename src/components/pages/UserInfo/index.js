@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import PageHero from "../../PageHero";
 import UserInfoItem from "./UserInfoItem";
 import Wishlist from "./Wishlist";
@@ -38,7 +38,7 @@ const UserInfo = ({ isAuthenticated, onLogout }) => {
       </>
     );
   }
-  if (active == "wishlist") {
+  if (active === "wishlist") {
     userInfoElement = <Wishlist />;
   }
   if (active === "order") {

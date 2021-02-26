@@ -6,10 +6,23 @@ import StarRateIcon from "@material-ui/icons/StarRate";
 import Modal from "../UI/Modal";
 import QuickviewProduct from "../QuickviewProduct";
 import { useHistory } from "react-router-dom";
+import { connect } from "react-redux";
+import { addToWishlist } from "../../store/actions";
+import { selectedItem } from "../../helper";
 
-const ProductItem = ({ product, addToCart }) => {
+const ProductItem = ({
+  product,
+  addToCart,
+  wishlist,
+  userId,
+  onAddToWishlist,
+}) => {
   const [openQuickview, setOpenQuickview] = useState(false);
   const history = useHistory();
+  const isInWishlist = wishlist.some((item) => item.id === product.id);
+  console.log(isInWishlist);
+  const wishlistItem = selectedItem(product, 1, product.colors[0]);
+
   return (
     <>
       <div className="product-item">
@@ -22,8 +35,13 @@ const ProductItem = ({ product, addToCart }) => {
             }}
           ></div>
           <div className="product-item__actions">
-            <div className="product-item__actions--wishlist">
-              <FavoriteBorderIcon />
+            <div
+              className="product-item__actions--wishlist"
+              onClick={() => onAddToWishlist(wishlistItem, userId)}
+            >
+              <FavoriteBorderIcon
+                style={{ color: isInWishlist ? "red" : "#fff" }}
+              />
             </div>
             <div
               className="product-item__actions--addtocart"
@@ -64,4 +82,16 @@ const ProductItem = ({ product, addToCart }) => {
   );
 };
 
-export default ProductItem;
+const mapStateToProps = (state) => {
+  return {
+    wishlist: state.wishlistReducer.items,
+    userId: state.authReducer.userId,
+  };
+};
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onAddToWishlist: (item, userId) => dispatch(addToWishlist(item, userId)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProductItem);

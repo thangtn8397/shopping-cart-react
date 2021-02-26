@@ -1,8 +1,4 @@
-import {
-  ADD_TO_WISHLIST,
-  FETCH_ITEM_WISHLIST_SUCCESS,
-  FETCH_ITEM_WISHLIST_FAILED,
-} from "../../../constants";
+import { ADD_TO_WISHLIST } from "../../../constants/types";
 
 const initialState = {
   items: [],
@@ -16,21 +12,11 @@ export const wishlistReducer = (state = initialState, action) => {
         ...state,
         items: [...state.items, action.item],
       };
-
     case FETCH_ITEM_WISHLIST_SUCCESS: {
       return {
         ...state,
         items: [...action.items],
-        loading: false,
       };
     }
-    case FETCH_ITEM_WISHLIST_FAILED:
-      return {
-        ...state,
-        error: action.error,
-        loading: false,
-      };
-    default:
-      return state;
   }
 };
