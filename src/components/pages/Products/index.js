@@ -8,16 +8,21 @@ import ListAltOutlinedIcon from "@material-ui/icons/ListAltOutlined";
 import { selectedItem } from "../../../helper";
 import { connect } from "react-redux";
 import { addToCart, fetchProducts } from "../../../store/actions";
-const Products = ({ products, onFetchProducts, onAddToCart }) => {
+const Products = ({ products, onFetchProducts, onAddToCart, wishlist }) => {
   useEffect(() => {
     onFetchProducts();
-  }, []);
+  }, [wishlist]);
+  const arrayIdItemWishlist = [];
+  for (let key in wishlist) {
+    arrayIdItemWishlist.push(key);
+  }
 
   const productKeys = products !== null ? Object.keys(products) : [];
   const productsElement =
     productKeys.length > 0 ? (
       productKeys.map((key) => (
         <ProductItem
+          inWishlist={arrayIdItemWishlist.includes(key)}
           product={products[key]}
           addToCart={() =>
             onAddToCart(selectedItem(products[key], 1, products[key].colors[0]))
@@ -64,6 +69,7 @@ const mapStateToProps = (state) => {
   return {
     products: state.productsReducer.products,
     items: state.cartReducer.items,
+    wishlist: state.wishlistReducer.items,
   };
 };
 

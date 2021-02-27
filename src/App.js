@@ -12,11 +12,11 @@ import UserInfo from "./components/pages/UserInfo";
 import { connect } from "react-redux";
 import { checkAuthState, fetchItemWishlist } from "./store/actions";
 
-function App({ onCheckAuthState, userId, onInitWishlist }) {
+function App({ onCheckAuthState, onInitWishlist, userId }) {
   useEffect(() => {
     onCheckAuthState();
     onInitWishlist(userId);
-  }, []);
+  }, [userId]);
   return (
     <Layout>
       <div className="App">
@@ -33,15 +33,16 @@ function App({ onCheckAuthState, userId, onInitWishlist }) {
     </Layout>
   );
 }
-const mapStateToProps = (state) => {
-  return {
-    userId: state.authReducer.userId,
-  };
-};
+
 const mapDispatchToProps = (dispatch) => {
   return {
     onCheckAuthState: () => dispatch(checkAuthState()),
     onInitWishlist: (userId) => dispatch(fetchItemWishlist(userId)),
+  };
+};
+const mapStateToProps = (state) => {
+  return {
+    userId: state.authReducer.userId,
   };
 };
 

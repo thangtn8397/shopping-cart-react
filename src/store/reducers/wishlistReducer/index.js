@@ -2,10 +2,15 @@ import {
   ADD_TO_WISHLIST,
   FETCH_ITEM_WISHLIST_SUCCESS,
   FETCH_ITEM_WISHLIST_FAILED,
+  FETCH_ITEM_WISHLIST_START,
+  ADD_TO_WISHLIST_FAILED,
+  ADD_TO_WISHLIST_SUCCESS,
+  REMOVE_FROM_WISHLIST,
 } from "../../../constants";
 
 const initialState = {
-  items: [],
+  items: null,
+  error: null,
   loading: false,
 };
 
@@ -14,13 +19,35 @@ export const wishlistReducer = (state = initialState, action) => {
     case ADD_TO_WISHLIST:
       return {
         ...state,
-        items: [...state.items, action.item],
+        loading: true,
       };
+    case ADD_TO_WISHLIST_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+      };
+    case ADD_TO_WISHLIST_FAILED: {
+      return {
+        ...state,
+        error: action.error,
+        loading: false,
+      };
+    }
+    case REMOVE_FROM_WISHLIST:
+      return {
+        ...state,
+      };
+    case FETCH_ITEM_WISHLIST_START: {
+      return {
+        ...state,
+        loading: true,
+      };
+    }
 
     case FETCH_ITEM_WISHLIST_SUCCESS: {
       return {
         ...state,
-        items: [...action.items],
+        items: { ...action.items },
         loading: false,
       };
     }

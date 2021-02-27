@@ -59,6 +59,8 @@
 }
 .wishlist {
   padding: 1.25rem;
+  height: 50vh;
+  overflow-y: scroll;
   &-item {
     display: block;
     text-align: center;

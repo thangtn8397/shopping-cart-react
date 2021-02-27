@@ -9,19 +9,32 @@ import { useHistory } from "react-router-dom";
 import { connect } from "react-redux";
 import { addToWishlist } from "../../store/actions";
 import { selectedItem } from "../../helper";
+import { toast } from "react-toastify";
 
 const ProductItem = ({
   product,
+  inWishlist,
   addToCart,
-  wishlist,
-  userId,
   onAddToWishlist,
+  userId,
+  isAuthenticated,
 }) => {
   const [openQuickview, setOpenQuickview] = useState(false);
   const history = useHistory();
-  const isInWishlist = wishlist.some((item) => item.id === product.id);
-  console.log(isInWishlist);
   const wishlistItem = selectedItem(product, 1, product.colors[0]);
+  const clickedWishlistIcon = () => {
+    if (isAuthenticated) {
+      if (!inWishlist) {
+        onAddToWishlist(wishlistItem, userId);
+      } else {
+        toast.warn("item in wishlist", {
+          position: toast.POSITION.BOTTOM_LEFT,
+        });
+      }
+    } else {
+      history.push("/auth");
+    }
+  };
 
   return (
     <>
@@ -35,27 +48,28 @@ const ProductItem = ({
             }}
           ></div>
           <div className="product-item__actions">
-            <div
+            <span
               className="product-item__actions--wishlist"
-              onClick={() => onAddToWishlist(wishlistItem, userId)}
+              onClick={() => clickedWishlistIcon()}
             >
               <FavoriteBorderIcon
-                style={{ color: isInWishlist ? "red" : "#fff" }}
+                style={inWishlist ? { color: "red" } : { color: "#fff" }}
               />
-            </div>
-            <div
+            </span>
+
+            <span
               className="product-item__actions--addtocart"
               onClick={addToCart}
             >
               Add To Cart
               <ShoppingCartIcon />
-            </div>
-            <div
+            </span>
+            <span
               className="product-item__actions--quickview"
               onClick={() => setOpenQuickview(true)}
             >
               <VisibilityIcon />
-            </div>
+            </span>
           </div>
         </div>
         <div className="product-item__info">
@@ -86,6 +100,7 @@ const mapStateToProps = (state) => {
   return {
     wishlist: state.wishlistReducer.items,
     userId: state.authReducer.userId,
+    isAuthenticated: state.authReducer.token !== null,
   };
 };
 const mapDispatchToProps = (dispatch) => {

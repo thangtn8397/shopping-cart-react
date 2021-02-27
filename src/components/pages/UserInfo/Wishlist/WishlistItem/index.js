@@ -2,11 +2,11 @@ import React from "react";
 import CloseIcon from "@material-ui/icons/Close";
 import { Link } from "react-router-dom";
 
-const WishlistItem = ({ item }) => {
+const WishlistItem = ({ item, removeItem }) => {
   return (
     <div className="wishlist-item">
       <span className="wishlist-item__removeIcon">
-        <CloseIcon />
+        <CloseIcon onClick={removeItem} />
       </span>
       <div className="wishlist-item__detail">
         <Link to="/products">
