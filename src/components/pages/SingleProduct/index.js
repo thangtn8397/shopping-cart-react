@@ -1,17 +1,22 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import PageHero from "../../PageHero";
 import ProductInfo from "../../ProductInfo";
 import { connect } from "react-redux";
 import { fetchSingleProduct } from "../../../store/actions/productsAction";
 import { useParams } from "react-router-dom";
 
-const SingleProduct = ({ onFetchSingleProduct, product, loading }) => {
+const SingleProduct = ({ onFetchSingleProduct, product, wishlist }) => {
   const { id } = useParams();
+  const [inWishlist, setInWishlist] = useState(false);
+  const array = wishlist ? Object.keys(wishlist) : [];
   useEffect(() => {
-    console.log("render");
     onFetchSingleProduct(id);
-  }, []);
-  const productInfo = !product ? null : <ProductInfo product={product} />;
+    console.log(array.length);
+    setInWishlist(array.includes(id));
+  }, [array.length]);
+  const productInfo = !product ? null : (
+    <ProductInfo product={product} inWishlist={inWishlist} />
+  );
 
   return (
     <>
@@ -29,7 +34,7 @@ const mapDispatchToProps = (dispatch) => {
 const mapStateToProps = (state) => {
   return {
     product: state.productsReducer.product,
-    loading: state.productsReducer.loading,
+    wishlist: state.wishlistReducer.items,
   };
 };
 

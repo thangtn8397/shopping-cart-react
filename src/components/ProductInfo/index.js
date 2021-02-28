@@ -10,10 +10,16 @@ import { selectedItem } from "../../helper/index";
 import { addToCart } from "../../store/actions";
 import { connect } from "react-redux";
 
-const ProductInfo = ({ product, onAddToCart }) => {
+const ProductInfo = ({ product, onAddToCart, wishlist }) => {
   const [selectedColor, setSelectedColor] = useState(null);
   const [selectedQuantity, setSelectedQuantity] = useState(1);
-  useEffect(() => setSelectedColor(product.colors[0]), []);
+  const [isInWishlist, setIsInWishlist] = useState();
+  const test = wishlist ? Object.keys(wishlist) : [];
+
+  useEffect(() => {
+    if (!selectedColor) setSelectedColor(product.colors[0]);
+    test ? setIsInWishlist(test.includes(product.id)) : setIsInWishlist();
+  }, []);
   const productInfo = product ? (
     <>
       <div className="product-info__image">
@@ -92,7 +98,9 @@ const ProductInfo = ({ product, onAddToCart }) => {
               Add to cart
             </button>
             <span className="product-info__addtocart-wishlist">
-              <FavoriteBorderIcon />
+              <FavoriteBorderIcon
+                style={isInWishlist ? { color: "red" } : {}}
+              />
             </span>
           </div>
         </div>
@@ -110,4 +118,9 @@ const mapDispathToProps = (dispatch) => {
     onAddToCart: (item) => dispatch(addToCart(item)),
   };
 };
-export default connect(null, mapDispathToProps)(ProductInfo);
+const mapStateToProps = (state) => {
+  return {
+    wishlist: state.wishlistReducer.items,
+  };
+};
+export default connect(mapStateToProps, mapDispathToProps)(ProductInfo);

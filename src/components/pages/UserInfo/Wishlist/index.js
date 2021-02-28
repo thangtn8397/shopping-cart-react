@@ -1,15 +1,15 @@
-import React, { useEffect } from "react";
+import React from "react";
 import WishlistItem from "./WishlistItem";
 import { connect } from "react-redux";
 import { removeFromWishlist } from "../../../../store/actions";
 
-const Wishlist = ({ wishlist, onRemoveItem }) => {
+const Wishlist = ({ wishlist, onRemoveItem, userId }) => {
   const wishlistElements = wishlist
     ? Object.keys(wishlist).map((key) => (
         <WishlistItem
           key={key}
           item={wishlist[key]}
-          removeItem={() => onRemoveItem(key)}
+          removeItem={() => onRemoveItem(userId, key)}
         />
       ))
     : null;
@@ -18,12 +18,13 @@ const Wishlist = ({ wishlist, onRemoveItem }) => {
 const mapStateToProps = (state) => {
   return {
     wishlist: state.wishlistReducer.items,
+    userId: state.authReducer.userId,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onRemoveItem: (id) => dispatch(removeFromWishlist(id)),
+    onRemoveItem: (userId, id) => dispatch(removeFromWishlist(userId, id)),
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Wishlist);

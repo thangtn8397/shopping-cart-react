@@ -6,7 +6,7 @@
     position: relative;
     &:hover {
       .product-item__actions {
-        span {
+        button {
           transform: translateY(0);
           opacity: 1;
           visibility: visible;
@@ -32,7 +32,7 @@
     width: 100%;
     color: #fff;
     overflow: hidden;
-    span {
+    button {
       background-color: $indianred;
       display: flex;
       justify-content: center;

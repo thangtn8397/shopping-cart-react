@@ -15,7 +15,9 @@ import { checkAuthState, fetchItemWishlist } from "./store/actions";
 function App({ onCheckAuthState, onInitWishlist, userId }) {
   useEffect(() => {
     onCheckAuthState();
-    onInitWishlist(userId);
+    if (userId) {
+      onInitWishlist(userId);
+    }
   }, [userId]);
   return (
     <Layout>

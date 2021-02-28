@@ -6,7 +6,6 @@ import {
 } from "../../../constants";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { fetchItemWishlist } from "../wishlistAction";
 export const auth = (email, password, isLogin) => {
   const url = isLogin
     ? "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyCYIimUiEKh8d1Zthn5xIHOihyzcw0FuMs"

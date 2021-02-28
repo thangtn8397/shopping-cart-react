@@ -5,7 +5,7 @@ import {
   FETCH_ITEM_WISHLIST_START,
   ADD_TO_WISHLIST_FAILED,
   ADD_TO_WISHLIST_SUCCESS,
-  REMOVE_FROM_WISHLIST,
+  REMOVE_FROM_WISHLIST_SUCCESS,
 } from "../../../constants";
 
 const initialState = {
@@ -22,8 +22,12 @@ export const wishlistReducer = (state = initialState, action) => {
         loading: true,
       };
     case ADD_TO_WISHLIST_SUCCESS:
+      let temp = {};
+      temp[action.item.id] = action.item;
+      const newItems = Object.assign(state.items, temp);
       return {
         ...state,
+        items: newItems,
         loading: false,
       };
     case ADD_TO_WISHLIST_FAILED: {
@@ -33,10 +37,15 @@ export const wishlistReducer = (state = initialState, action) => {
         loading: false,
       };
     }
-    case REMOVE_FROM_WISHLIST:
+    case REMOVE_FROM_WISHLIST_SUCCESS:
+      const tempItems = state.items;
+      delete tempItems[action.itemId];
       return {
         ...state,
+        items: { ...tempItems },
+        loading: false,
       };
+
     case FETCH_ITEM_WISHLIST_START: {
       return {
         ...state,

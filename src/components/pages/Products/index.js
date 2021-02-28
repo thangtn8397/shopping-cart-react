@@ -11,7 +11,7 @@ import { addToCart, fetchProducts } from "../../../store/actions";
 const Products = ({ products, onFetchProducts, onAddToCart, wishlist }) => {
   useEffect(() => {
     onFetchProducts();
-  }, [wishlist]);
+  }, []);
   const arrayIdItemWishlist = [];
   for (let key in wishlist) {
     arrayIdItemWishlist.push(key);
@@ -23,6 +23,7 @@ const Products = ({ products, onFetchProducts, onAddToCart, wishlist }) => {
       productKeys.map((key) => (
         <ProductItem
           inWishlist={arrayIdItemWishlist.includes(key)}
+          key={key}
           product={products[key]}
           addToCart={() =>
             onAddToCart(selectedItem(products[key], 1, products[key].colors[0]))

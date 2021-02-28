@@ -1,9 +1,8 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { ToastContainer } from "react-toastify";
-import { connect } from "react-redux";
 import "react-toastify/dist/ReactToastify.css";
 
-const Layout = ({ children, onCheckAuthState }) => {
+const Layout = ({ children }) => {
   return (
     <>
       {children}

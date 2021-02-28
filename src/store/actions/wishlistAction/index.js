@@ -10,27 +10,28 @@ import {
   REMOVE_FROM_WISHLIST,
 } from "../../../constants";
 
-export const addToWishlist = (item, userId) => {
+export const addToWishlist = (id, item, userId) => {
+  console.log(id);
   return (dispatch) => {
     dispatch({
       type: ADD_TO_WISHLIST,
     });
     axios
       .put(
-        `https://ecommerce-31a69.firebaseio.com/wishlist/${userId}/${item.id}.json`,
+        `https://ecommerce-31a69.firebaseio.com/wishlist/${userId}/${id}.json`,
         item
       )
       .then((res) => {
-        dispatch(addToWishlistSuccess());
-        dispatch(fetchItemWishlist(userId));
+        dispatch(addToWishlistSuccess(item));
+        // dispatch(fetchItemWishlist(userId));
       })
       .catch((error) => dispatch(addToWishlistFailed(error)));
   };
 };
 
-export const addToWishlistSuccess = () => {
+export const addToWishlistSuccess = (item) => {
   return (dispatch) => {
-    dispatch({ type: ADD_TO_WISHLIST_SUCCESS });
+    dispatch({ type: ADD_TO_WISHLIST_SUCCESS, item });
     toast.success("Added to wishlist", {
       position: toast.POSITION.BOTTOM_LEFT,
     });
@@ -44,22 +45,24 @@ export const addToWishlistFailed = (error) => {
   };
 };
 
-export const removeFromWishlist = (userId, id) => {
+export const removeFromWishlist = (userId, itemId) => {
   return (dispatch) => {
     axios
       .delete(
-        `https://ecommerce-31a69.firebaseio.com/wishlist/${userId}/${id}.json`
+        `https://ecommerce-31a69.firebaseio.com/wishlist/${userId}/${itemId}.json`
       )
       .then((res) => {
-        dispatch(removeFromWishlistSucces());
-        dispatch(fetchItemWishlist(userId));
+        dispatch(removeFromWishlistSucces(itemId));
       });
   };
 };
 
-export const removeFromWishlistSucces = () => {
-  return {
-    type: REMOVE_FROM_WISHLIST_SUCCESS,
+export const removeFromWishlistSucces = (itemId) => {
+  return (dispatch) => {
+    dispatch({ type: REMOVE_FROM_WISHLIST_SUCCESS, itemId });
+    toast.error("remove from wishlist", {
+      position: toast.POSITION.BOTTOM_LEFT,
+    });
   };
 };
 

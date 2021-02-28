@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import VisibilityIcon from "@material-ui/icons/Visibility";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
@@ -13,21 +13,29 @@ import { toast } from "react-toastify";
 
 const ProductItem = ({
   product,
-  inWishlist,
   addToCart,
   onAddToWishlist,
   userId,
   isAuthenticated,
+  inWishlist,
 }) => {
+  const [isWishlist, setIsWishlist] = useState();
   const [openQuickview, setOpenQuickview] = useState(false);
   const history = useHistory();
+
+  useEffect(() => {
+    console.log(inWishlist);
+    setIsWishlist(inWishlist);
+  }, [inWishlist]);
+
   const wishlistItem = selectedItem(product, 1, product.colors[0]);
   const clickedWishlistIcon = () => {
     if (isAuthenticated) {
       if (!inWishlist) {
-        onAddToWishlist(wishlistItem, userId);
+        onAddToWishlist(product.id, wishlistItem, userId);
+        setIsWishlist(true);
       } else {
-        toast.warn("item in wishlist", {
+        toast.warn("Item In Wishlist", {
           position: toast.POSITION.BOTTOM_LEFT,
         });
       }
@@ -48,28 +56,28 @@ const ProductItem = ({
             }}
           ></div>
           <div className="product-item__actions">
-            <span
+            <button
               className="product-item__actions--wishlist"
               onClick={() => clickedWishlistIcon()}
             >
               <FavoriteBorderIcon
-                style={inWishlist ? { color: "red" } : { color: "#fff" }}
+                style={isWishlist ? { color: "red" } : { color: "#fff" }}
               />
-            </span>
+            </button>
 
-            <span
+            <button
               className="product-item__actions--addtocart"
               onClick={addToCart}
             >
               Add To Cart
               <ShoppingCartIcon />
-            </span>
-            <span
+            </button>
+            <button
               className="product-item__actions--quickview"
               onClick={() => setOpenQuickview(true)}
             >
               <VisibilityIcon />
-            </span>
+            </button>
           </div>
         </div>
         <div className="product-item__info">
@@ -105,7 +113,8 @@ const mapStateToProps = (state) => {
 };
 const mapDispatchToProps = (dispatch) => {
   return {
-    onAddToWishlist: (item, userId) => dispatch(addToWishlist(item, userId)),
+    onAddToWishlist: (id, item, userId) =>
+      dispatch(addToWishlist(id, item, userId)),
   };
 };
 
