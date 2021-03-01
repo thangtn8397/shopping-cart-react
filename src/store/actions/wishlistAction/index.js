@@ -10,15 +10,14 @@ import {
   REMOVE_FROM_WISHLIST,
 } from "../../../constants";
 
-export const addToWishlist = (id, item, userId) => {
-  console.log(id);
+export const addToWishlist = (item, userId) => {
   return (dispatch) => {
     dispatch({
       type: ADD_TO_WISHLIST,
     });
     axios
       .put(
-        `https://ecommerce-31a69.firebaseio.com/wishlist/${userId}/${id}.json`,
+        `https://ecommerce-31a69.firebaseio.com/wishlist/${userId}/${item.id}.json`,
         item
       )
       .then((res) => {

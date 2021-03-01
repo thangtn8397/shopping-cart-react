@@ -24,21 +24,14 @@ const ProductItem = ({
   const history = useHistory();
 
   useEffect(() => {
-    console.log(inWishlist);
     setIsWishlist(inWishlist);
-  }, [inWishlist]);
+  }, []);
 
   const wishlistItem = selectedItem(product, 1, product.colors[0]);
   const clickedWishlistIcon = () => {
     if (isAuthenticated) {
-      if (!inWishlist) {
-        onAddToWishlist(product.id, wishlistItem, userId);
-        setIsWishlist(true);
-      } else {
-        toast.warn("Item In Wishlist", {
-          position: toast.POSITION.BOTTOM_LEFT,
-        });
-      }
+      onAddToWishlist(wishlistItem, userId);
+      setIsWishlist(true);
     } else {
       history.push("/auth");
     }
@@ -57,6 +50,7 @@ const ProductItem = ({
           ></div>
           <div className="product-item__actions">
             <button
+              disabled={isWishlist}
               className="product-item__actions--wishlist"
               onClick={() => clickedWishlistIcon()}
             >
@@ -98,6 +92,7 @@ const ProductItem = ({
         <QuickviewProduct
           closequickview={() => setOpenQuickview(false)}
           product={product}
+          inWishlist={isWishlist}
         />
       </Modal>
     </>
@@ -113,8 +108,7 @@ const mapStateToProps = (state) => {
 };
 const mapDispatchToProps = (dispatch) => {
   return {
-    onAddToWishlist: (id, item, userId) =>
-      dispatch(addToWishlist(id, item, userId)),
+    onAddToWishlist: (item, userId) => dispatch(addToWishlist(item, userId)),
   };
 };
 

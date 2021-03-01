@@ -8,6 +8,8 @@ import ListAltOutlinedIcon from "@material-ui/icons/ListAltOutlined";
 import { selectedItem } from "../../../helper";
 import { connect } from "react-redux";
 import { addToCart, fetchProducts } from "../../../store/actions";
+import Modal from "../../UI/Modal";
+import QuickviewProduct from "../../QuickviewProduct";
 const Products = ({ products, onFetchProducts, onAddToCart, wishlist }) => {
   useEffect(() => {
     onFetchProducts();

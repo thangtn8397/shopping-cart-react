@@ -7,19 +7,25 @@ import CheckIcon from "@material-ui/icons/Check";
 import AddIcon from "@material-ui/icons/Add";
 import RemoveIcon from "@material-ui/icons/Remove";
 import { selectedItem } from "../../helper/index";
-import { addToCart } from "../../store/actions";
+import { addToCart, addToWishlist } from "../../store/actions";
 import { connect } from "react-redux";
+import PageHero from "../PageHero";
 
-const ProductInfo = ({ product, onAddToCart, wishlist }) => {
+const ProductInfo = ({
+  product,
+  onAddToCart,
+  inWishlist,
+  userId,
+  onAddToWishlist,
+}) => {
   const [selectedColor, setSelectedColor] = useState(null);
   const [selectedQuantity, setSelectedQuantity] = useState(1);
-  const [isInWishlist, setIsInWishlist] = useState();
-  const test = wishlist ? Object.keys(wishlist) : [];
+  const [isInWishlist, setIsInWishlist] = useState(false);
 
   useEffect(() => {
     if (!selectedColor) setSelectedColor(product.colors[0]);
-    test ? setIsInWishlist(test.includes(product.id)) : setIsInWishlist();
-  }, []);
+    setIsInWishlist(inWishlist);
+  }, [inWishlist]);
   const productInfo = product ? (
     <>
       <div className="product-info__image">
@@ -97,11 +103,21 @@ const ProductInfo = ({ product, onAddToCart, wishlist }) => {
             >
               Add to cart
             </button>
-            <span className="product-info__addtocart-wishlist">
+            <button
+              disabled={isInWishlist}
+              onClick={() => {
+                onAddToWishlist(
+                  selectedItem(product, 1, selectedColor),
+                  userId
+                );
+                setIsInWishlist(true);
+              }}
+              className="product-info__addtocart-wishlist"
+            >
               <FavoriteBorderIcon
-                style={isInWishlist ? { color: "red" } : {}}
+                style={isInWishlist ? { color: "red" } : { color: "#000" }}
               />
-            </span>
+            </button>
           </div>
         </div>
       </div>
@@ -116,11 +132,13 @@ const ProductInfo = ({ product, onAddToCart, wishlist }) => {
 const mapDispathToProps = (dispatch) => {
   return {
     onAddToCart: (item) => dispatch(addToCart(item)),
+    onAddToWishlist: (item, userId) => dispatch(addToWishlist(item, userId)),
   };
 };
 const mapStateToProps = (state) => {
   return {
     wishlist: state.wishlistReducer.items,
+    userId: state.authReducer.userId,
   };
 };
 export default connect(mapStateToProps, mapDispathToProps)(ProductInfo);

@@ -11,7 +11,6 @@ const SingleProduct = ({ onFetchSingleProduct, product, wishlist }) => {
   const array = wishlist ? Object.keys(wishlist) : [];
   useEffect(() => {
     onFetchSingleProduct(id);
-    console.log(array.length);
     setInWishlist(array.includes(id));
   }, [array.length]);
   const productInfo = !product ? null : (
