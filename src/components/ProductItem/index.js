@@ -3,8 +3,6 @@ import VisibilityIcon from "@material-ui/icons/Visibility";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import StarRateIcon from "@material-ui/icons/StarRate";
-import Modal from "../UI/Modal";
-import QuickviewProduct from "../QuickviewProduct";
 import { useHistory } from "react-router-dom";
 import { connect } from "react-redux";
 import { addToWishlist } from "../../store/actions";
@@ -18,20 +16,26 @@ const ProductItem = ({
   userId,
   isAuthenticated,
   inWishlist,
+  openQuickview,
 }) => {
   const [isWishlist, setIsWishlist] = useState();
-  const [openQuickview, setOpenQuickview] = useState(false);
   const history = useHistory();
 
   useEffect(() => {
     setIsWishlist(inWishlist);
-  }, []);
+  }, [inWishlist]);
 
   const wishlistItem = selectedItem(product, 1, product.colors[0]);
   const clickedWishlistIcon = () => {
     if (isAuthenticated) {
-      onAddToWishlist(wishlistItem, userId);
-      setIsWishlist(true);
+      if (!inWishlist) {
+        onAddToWishlist(wishlistItem, userId);
+        setIsWishlist(true);
+      } else {
+        toast.warn("Item In Wishlist", {
+          position: toast.POSITION.BOTTOM_LEFT,
+        });
+      }
     } else {
       history.push("/auth");
     }
@@ -50,7 +54,6 @@ const ProductItem = ({
           ></div>
           <div className="product-item__actions">
             <button
-              disabled={isWishlist}
               className="product-item__actions--wishlist"
               onClick={() => clickedWishlistIcon()}
             >
@@ -68,7 +71,7 @@ const ProductItem = ({
             </button>
             <button
               className="product-item__actions--quickview"
-              onClick={() => setOpenQuickview(true)}
+              onClick={openQuickview}
             >
               <VisibilityIcon />
             </button>
@@ -88,13 +91,6 @@ const ProductItem = ({
           </span>
         </div>
       </div>
-      <Modal isOpen={openQuickview} closeModal={() => setOpenQuickview(false)}>
-        <QuickviewProduct
-          closequickview={() => setOpenQuickview(false)}
-          product={product}
-          inWishlist={isWishlist}
-        />
-      </Modal>
     </>
   );
 };

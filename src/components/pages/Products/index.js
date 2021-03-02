@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Sidebar from "./Sidebar";
 import ProductItem from "../../ProductItem";
 import Spinner from "../../UI/Spinner";
@@ -8,9 +8,11 @@ import ListAltOutlinedIcon from "@material-ui/icons/ListAltOutlined";
 import { selectedItem } from "../../../helper";
 import { connect } from "react-redux";
 import { addToCart, fetchProducts } from "../../../store/actions";
-import Modal from "../../UI/Modal";
 import QuickviewProduct from "../../QuickviewProduct";
+import Modal from "../../UI/Modal";
 const Products = ({ products, onFetchProducts, onAddToCart, wishlist }) => {
+  const [itemWatching, setWatchingItem] = useState(null);
+  const [openQuickview, setOpenQuickview] = useState(false);
   useEffect(() => {
     onFetchProducts();
   }, []);
@@ -30,6 +32,10 @@ const Products = ({ products, onFetchProducts, onAddToCart, wishlist }) => {
           addToCart={() =>
             onAddToCart(selectedItem(products[key], 1, products[key].colors[0]))
           }
+          openQuickview={() => {
+            setWatchingItem(products[key]);
+            setOpenQuickview(true);
+          }}
         />
       ))
     ) : (
@@ -65,6 +71,18 @@ const Products = ({ products, onFetchProducts, onAddToCart, wishlist }) => {
           <div className=" products__grid">{productsElement}</div>
         </div>
       </div>
+      {openQuickview && itemWatching ? (
+        <Modal
+          isOpen={openQuickview}
+          closeModal={() => setOpenQuickview(false)}
+        >
+          <QuickviewProduct
+            product={itemWatching}
+            closeQuickview={() => setOpenQuickview(false)}
+            inWishlist={arrayIdItemWishlist.includes(itemWatching.id)}
+          />
+        </Modal>
+      ) : null}
     </div>
   );
 };

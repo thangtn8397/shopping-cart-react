@@ -7,14 +7,13 @@ import { useParams } from "react-router-dom";
 
 const SingleProduct = ({ onFetchSingleProduct, product, wishlist }) => {
   const { id } = useParams();
-  const [inWishlist, setInWishlist] = useState(false);
-  const array = wishlist ? Object.keys(wishlist) : [];
+  const check = wishlist ? Object.keys(wishlist).includes(id) : false;
+
   useEffect(() => {
     onFetchSingleProduct(id);
-    setInWishlist(array.includes(id));
-  }, [array.length]);
+  }, []);
   const productInfo = !product ? null : (
-    <ProductInfo product={product} inWishlist={inWishlist} />
+    <ProductInfo product={product} inWishlist={check} />
   );
 
   return (

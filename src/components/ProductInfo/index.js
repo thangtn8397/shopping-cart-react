@@ -9,23 +9,23 @@ import RemoveIcon from "@material-ui/icons/Remove";
 import { selectedItem } from "../../helper/index";
 import { addToCart, addToWishlist } from "../../store/actions";
 import { connect } from "react-redux";
-import PageHero from "../PageHero";
 
 const ProductInfo = ({
   product,
   onAddToCart,
   inWishlist,
-  userId,
   onAddToWishlist,
+  userId,
 }) => {
   const [selectedColor, setSelectedColor] = useState(null);
   const [selectedQuantity, setSelectedQuantity] = useState(1);
-  const [isInWishlist, setIsInWishlist] = useState(false);
+  const [isInWishlist, setIsInWishlist] = useState(inWishlist);
 
   useEffect(() => {
     if (!selectedColor) setSelectedColor(product.colors[0]);
     setIsInWishlist(inWishlist);
-  }, [inWishlist]);
+    //test ? setIsInWishlist(test.includes(product.id)) : setIsInWishlist();
+  }, []);
   const productInfo = product ? (
     <>
       <div className="product-info__image">
@@ -105,6 +105,7 @@ const ProductInfo = ({
             </button>
             <button
               disabled={isInWishlist}
+              className="product-info__addtocart-wishlist"
               onClick={() => {
                 onAddToWishlist(
                   selectedItem(product, 1, selectedColor),
@@ -112,7 +113,6 @@ const ProductInfo = ({
                 );
                 setIsInWishlist(true);
               }}
-              className="product-info__addtocart-wishlist"
             >
               <FavoriteBorderIcon
                 style={isInWishlist ? { color: "red" } : { color: "#000" }}
