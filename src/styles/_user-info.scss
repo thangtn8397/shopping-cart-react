@@ -58,9 +58,20 @@
   }
 }
 .wishlist {
-  padding: 1.25rem;
-  height: 50vh;
-  overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  width: 100%;
+  &__wrapper {
+    padding: 1.25rem;
+    height: 50vh;
+    width: 100%;
+    overflow-y: scroll;
+    margin-bottom: 1.875rem;
+  }
+  &__clearItems {
+    padding: 1.25rem;
+  }
   &-item {
     display: block;
     text-align: center;
@@ -100,9 +111,11 @@
       }
       h4 {
         text-transform: capitalize;
+        font-size: 13px;
       }
       p {
         font-weight: 400;
+        font-size: 13px;
       }
       @include breakpoint-up(medium) {
         & {
@@ -116,6 +129,7 @@
           h4,
           p {
             margin-bottom: 0.675rem;
+            font-size: 15px;
           }
         }
       }

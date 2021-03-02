@@ -85,9 +85,6 @@
   font-weight: 400;
   color: $darkBlue;
   &__item {
-    //display: flex;
-    //justify-content: center;
-    //align-items: center;
     font-size: 1.5625rem;
     cursor: pointer;
     position: relative;
@@ -109,8 +106,8 @@
       padding: 0.675rem;
       width: 1.5rem;
       height: 1.5rem;
-      top: -70%;
-      right: -65%;
+      top: -60%;
+      right: -60%;
       font-size: 0.75rem;
       background-color: $indianred;
       border-radius: 50%;

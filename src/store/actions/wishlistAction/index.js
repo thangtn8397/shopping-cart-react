@@ -8,6 +8,9 @@ import {
   FETCH_ITEM_WISHLIST_SUCCESS,
   FETCH_ITEM_WISHLIST_FAILED,
   REMOVE_FROM_WISHLIST,
+  CLEAR_WISHLIST,
+  CLEAR_WISHLIST_SUCCESS,
+  CLEAR_WISHLIST_FAILED,
 } from "../../../constants";
 
 export const addToWishlist = (item, userId) => {
@@ -44,23 +47,54 @@ export const addToWishlistFailed = (error) => {
   };
 };
 
-export const removeFromWishlist = (userId, itemId) => {
+export const removeFromWishlist = (userId, itemId, isAddToCart) => {
   return (dispatch) => {
     axios
       .delete(
         `https://ecommerce-31a69.firebaseio.com/wishlist/${userId}/${itemId}.json`
       )
       .then((res) => {
-        dispatch(removeFromWishlistSucces(itemId));
+        dispatch(removeFromWishlistSucces(itemId, isAddToCart));
       });
   };
 };
 
-export const removeFromWishlistSucces = (itemId) => {
+export const removeFromWishlistSucces = (itemId, isAddToCart) => {
   return (dispatch) => {
     dispatch({ type: REMOVE_FROM_WISHLIST_SUCCESS, itemId });
-    toast.error("remove from wishlist", {
+    if (!isAddToCart) {
+      toast.error("Remove from wishlist", {
+        position: toast.POSITION.BOTTOM_LEFT,
+      });
+    }
+  };
+};
+
+export const clearWishlist = (userId) => {
+  return (dispatch) => {
+    axios
+      .delete(`https://ecommerce-31a69.firebaseio.com/wishlist/${userId}.json`)
+      .then((res) => dispatch(clearWishlistSuccess()))
+      .then((error) => dispatch(clearWishlistFailed(error)));
+  };
+};
+
+export const clearWishlistSuccess = () => {
+  return (dispatch) => {
+    dispatch({
+      type: CLEAR_WISHLIST_SUCCESS,
+    });
+    toast.error("Clear wishlist", {
       position: toast.POSITION.BOTTOM_LEFT,
+    });
+  };
+};
+
+export const clearWishlistFailed = (error) => {
+  return (dispatch) => {
+    dispatch({
+      type: CLEAR_WISHLIST_FAILED,
+      error: error,
     });
   };
 };

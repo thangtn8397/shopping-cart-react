@@ -2,7 +2,7 @@ import React from "react";
 import CloseIcon from "@material-ui/icons/Close";
 import { Link } from "react-router-dom";
 
-const WishlistItem = ({ item, removeItem }) => {
+const WishlistItem = ({ item, removeItem, addToCartFromWishlist }) => {
   return (
     <div className="wishlist-item">
       <span className="wishlist-item__removeIcon">
@@ -21,7 +21,7 @@ const WishlistItem = ({ item, removeItem }) => {
           ></span>
         </div>
       </div>
-      <button>Add to cart</button>
+      <button onClick={addToCartFromWishlist}>Add to cart</button>
       <p className="wishlist-item__removeText">Remove from wishlist</p>
     </div>
   );

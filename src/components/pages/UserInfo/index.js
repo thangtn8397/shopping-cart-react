@@ -50,8 +50,8 @@ const UserInfo = ({ isAuthenticated, onLogout }) => {
     <div className="userInfo">
       <PageHero products={false} link="My Account" />
       {redirect}
-      <button onClick={() => onLogout()}>Logout</button>
       <div className="userInfo__wrapper container wrapper">
+        <button onClick={() => onLogout()}>Logout</button>
         <div className="userInfo__switch switch">
           <h3 onClick={() => setActive("account")}>My Account</h3>
           <span></span>
