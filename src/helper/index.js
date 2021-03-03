@@ -38,3 +38,5 @@ export const checkValidity = (value, rules) => {
   }
   return isValid;
 };
+
+export const sortProducts = (products, filter) => {};

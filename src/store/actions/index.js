@@ -1,4 +1,10 @@
-export { fetchProducts } from "./productsAction";
+export {
+  fetchProducts,
+  filterProducts,
+  sortProducts,
+  updateFilter,
+  updateSort,
+} from "./productsAction";
 
 export {
   addToCart,

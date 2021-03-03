@@ -11,6 +11,7 @@ import { toast } from "react-toastify";
 
 const ProductItem = ({
   product,
+  position,
   addToCart,
   onAddToWishlist,
   userId,
@@ -47,7 +48,7 @@ const ProductItem = ({
         <div className="product-item__wrapper">
           <div
             className="product-item__background"
-            onClick={() => history.push(`/products/${product.id}`)}
+            onClick={() => history.push(`/products/${position}`)}
             style={{
               backgroundImage: `url(${product.image})`,
             }}

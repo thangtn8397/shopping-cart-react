@@ -1,16 +1,18 @@
 import React, { useState } from "react";
 import { category, companies, colors } from "../../../../constants";
 import CheckIcon from "@material-ui/icons/Check";
+import { connect } from "react-redux";
+import { updateFilter } from "../../../../store/actions";
 
-const Sidebar = () => {
-  const [categoryCopy, setCategory] = useState(category);
+const Sidebar = ({ onUpdateFilter }) => {
+  const [filterCategory, setFilterCategory] = useState(category);
   const [filterColor, setFilterColor] = useState("all");
   const [filterPrice, setFilterPrice] = useState(0.0);
   const [filterShipping, setFilterShipping] = useState(false);
 
   const setActive = (index) => {
-    setCategory(
-      categoryCopy.map((item) =>
+    setFilterCategory(
+      filterCategory.map((item) =>
         item.filter === index
           ? { ...item, active: true }
           : { ...item, active: false }
@@ -20,13 +22,17 @@ const Sidebar = () => {
   return (
     <div className="sidebar">
       <div className="sidebar__searchbar">
-        <input type="text" placeholder="Search" />
+        <input
+          type="text"
+          placeholder="Search"
+          onChange={(e) => onUpdateFilter("text", e.target.value)}
+        />
       </div>
 
       <div className="sidebar__category sidebar__filter">
         <h4>Category</h4>
         <ul className="sidebar__category-list">
-          {categoryCopy.map((item) => (
+          {filterCategory.map((item) => (
             <li
               className={item.active ? "active" : ""}
               key={item.filter}
@@ -93,4 +99,13 @@ const Sidebar = () => {
   );
 };
 
-export default Sidebar;
+const mapStateToProps = (state) => {
+  return {};
+};
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onUpdateFilter: (key, value) => dispatch(updateFilter(key, value)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Sidebar);

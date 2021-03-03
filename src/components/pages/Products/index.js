@@ -3,37 +3,56 @@ import Sidebar from "./Sidebar";
 import ProductItem from "../../ProductItem";
 import Spinner from "../../UI/Spinner";
 import PageHero from "../../PageHero";
-import AppsOutlinedIcon from "@material-ui/icons/AppsOutlined";
-import ListAltOutlinedIcon from "@material-ui/icons/ListAltOutlined";
 import { selectedItem } from "../../../helper";
 import { connect } from "react-redux";
-import { addToCart, fetchProducts } from "../../../store/actions";
+import {
+  addToCart,
+  fetchProducts,
+  filterProducts,
+  sortProducts,
+} from "../../../store/actions";
 import QuickviewProduct from "../../QuickviewProduct";
 import Modal from "../../UI/Modal";
-const Products = ({ products, onFetchProducts, onAddToCart, wishlist }) => {
+import Sort from "./Sort";
+
+const Products = ({
+  products,
+  filters,
+  sort,
+  onFetchProducts,
+  onAddToCart,
+  wishlist,
+  onSortProducts,
+  onFilterProducts,
+}) => {
   const [itemWatching, setWatchingItem] = useState(null);
   const [openQuickview, setOpenQuickview] = useState(false);
   useEffect(() => {
     onFetchProducts();
   }, []);
+  useEffect(() => {
+    onFilterProducts();
+    onSortProducts();
+  }, [sort, filters]);
+
   const arrayIdItemWishlist = [];
   for (let key in wishlist) {
     arrayIdItemWishlist.push(key);
   }
 
-  const productKeys = products !== null ? Object.keys(products) : [];
   const productsElement =
-    productKeys.length > 0 ? (
-      productKeys.map((key) => (
+    products !== null ? (
+      products.map((product, index) => (
         <ProductItem
-          inWishlist={arrayIdItemWishlist.includes(key)}
-          key={key}
-          product={products[key]}
+          key={index}
+          position={index}
+          inWishlist={arrayIdItemWishlist.includes(product.id)}
+          product={product}
           addToCart={() =>
-            onAddToCart(selectedItem(products[key], 1, products[key].colors[0]))
+            onAddToCart(selectedItem(products, 1, product.colors[0]))
           }
           openQuickview={() => {
-            setWatchingItem(products[key]);
+            setWatchingItem(product);
             setOpenQuickview(true);
           }}
         />
@@ -42,32 +61,34 @@ const Products = ({ products, onFetchProducts, onAddToCart, wishlist }) => {
       <Spinner />
     );
 
+  // const productKeys = products !== null ? Object.keys(products) : [];
+  // const productsElement =
+  //   productKeys.length > 0 ? (
+  //     productKeys.map((key) => (
+  //       <ProductItem
+  //         inWishlist={arrayIdItemWishlist.includes(key)}
+  //         key={key}
+  //         product={products[key]}
+  //         addToCart={() =>
+  //           onAddToCart(selectedItem(products[key], 1, products[key].colors[0]))
+  //         }
+  //         openQuickview={() => {
+  //           setWatchingItem(products[key]);
+  //           setOpenQuickview(true);
+  //         }}
+  //       />
+  //     ))
+  //   ) : (
+  //     <Spinner />
+  //   );
+
   return (
     <div className="products">
       <PageHero products={true} />
       <div className="products__wrapper container wrapper">
         <Sidebar />
         <div className="products__items">
-          <div className="products__items__sort">
-            <div className="products__items__sort-left">
-              <span>
-                <AppsOutlinedIcon />
-              </span>
-              <span>
-                <ListAltOutlinedIcon />
-              </span>
-              <p>{productKeys.length} products found</p>
-            </div>
-            <hr />
-            <div className="products__items__sort-right">
-              <label>Sort by</label>
-              <select>
-                <option>Price lowest</option>
-                <option>Price lowest</option>
-                <option>Price lowest</option>
-              </select>
-            </div>
-          </div>
+          <Sort productsNumber={products.length} />
           <div className=" products__grid">{productsElement}</div>
         </div>
       </div>
@@ -88,9 +109,11 @@ const Products = ({ products, onFetchProducts, onAddToCart, wishlist }) => {
 };
 const mapStateToProps = (state) => {
   return {
-    products: state.productsReducer.products,
+    products: state.productsReducer.filteredProducts,
     items: state.cartReducer.items,
     wishlist: state.wishlistReducer.items,
+    filters: state.productsReducer.filters,
+    sort: state.productsReducer.sort,
   };
 };
 
@@ -98,6 +121,8 @@ const mapDispatchToProps = (dispatch) => {
   return {
     onFetchProducts: () => dispatch(fetchProducts()),
     onAddToCart: (item) => dispatch(addToCart(item)),
+    onFilterProducts: () => dispatch(filterProducts()),
+    onSortProducts: (sort) => dispatch(sortProducts(sort)),
   };
 };
 

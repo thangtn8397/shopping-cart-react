@@ -6,6 +6,10 @@ import {
   FETCH_SINGLE_PRODUCT_START,
   FETCH_SINGLE_PRODUCT_FAILED,
   FETCH_SINGLE_PRODUCT_SUCCESS,
+  SORT_PRODUCTS,
+  UPDATE_SORT,
+  FILTER_PRODUCTS,
+  UPDATE_FILTER,
 } from "../../../constants/";
 export const fetchProductsStart = () => {
   return {
@@ -34,7 +38,8 @@ export const fetchProducts = () => {
       .get("https://ecommerce-31a69.firebaseio.com/products.json")
       .then((res) => {
         dispatch(fetchProductsSuccess(res.data));
-      });
+      })
+      .catch((error) => dispatch(fetchProductsFailed(error)));
   };
 };
 
@@ -58,12 +63,38 @@ export const fetchSingleProductFailed = (error) => {
   };
 };
 
-export const fetchSingleProduct = (id) => {
+export const fetchSingleProduct = (position) => {
   return (dispatch) => {
     dispatch(fetchSingleProductStart());
     axios
-      .get(`https://ecommerce-31a69.firebaseio.com/products/${id}.json`)
+      .get(`https://ecommerce-31a69.firebaseio.com/products/${position}.json`)
       .then((res) => dispatch(fetchSingleProductSuccess(res.data)))
       .catch((error) => dispatch(fetchSingleProductFailed(error)));
+  };
+};
+
+export const sortProducts = () => {
+  return {
+    type: SORT_PRODUCTS,
+  };
+};
+
+export const updateSort = (sort) => {
+  return {
+    type: UPDATE_SORT,
+    sort,
+  };
+};
+
+export const updateFilter = (key, value) => {
+  return {
+    type: UPDATE_FILTER,
+    key,
+    value,
+  };
+};
+export const filterProducts = () => {
+  return {
+    type: FILTER_PRODUCTS,
   };
 };
