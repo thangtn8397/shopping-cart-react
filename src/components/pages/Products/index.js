@@ -61,27 +61,6 @@ const Products = ({
       <Spinner />
     );
 
-  // const productKeys = products !== null ? Object.keys(products) : [];
-  // const productsElement =
-  //   productKeys.length > 0 ? (
-  //     productKeys.map((key) => (
-  //       <ProductItem
-  //         inWishlist={arrayIdItemWishlist.includes(key)}
-  //         key={key}
-  //         product={products[key]}
-  //         addToCart={() =>
-  //           onAddToCart(selectedItem(products[key], 1, products[key].colors[0]))
-  //         }
-  //         openQuickview={() => {
-  //           setWatchingItem(products[key]);
-  //           setOpenQuickview(true);
-  //         }}
-  //       />
-  //     ))
-  //   ) : (
-  //     <Spinner />
-  //   );
-
   return (
     <div className="products">
       <PageHero products={true} />

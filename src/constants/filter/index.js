@@ -10,7 +10,7 @@ export const category = [
     active: false,
   },
   {
-    filter: "living-room",
+    filter: "living room",
     displayName: "Living room",
     active: false,
   },
@@ -36,6 +36,13 @@ export const category = [
   },
 ];
 
-export const companies = ["marcos", "caressa", "ikea", "liddy"];
+export const companies = ["all", "marcos", "caressa", "ikea", "liddy"];
 
-export const colors = ["#ff8080", "#80ff80", "#8080ff", "#808080", "#ffdc80"];
+export const colors = [
+  "#ff8080",
+  "#000",
+  "#80ff80",
+  "#8080ff",
+  "#808080",
+  "#ffdc80",
+];

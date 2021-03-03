@@ -10,6 +10,7 @@ import {
   UPDATE_SORT,
   FILTER_PRODUCTS,
   UPDATE_FILTER,
+  CLEAR_FILTER,
 } from "../../../constants/";
 export const fetchProductsStart = () => {
   return {
@@ -96,5 +97,10 @@ export const updateFilter = (key, value) => {
 export const filterProducts = () => {
   return {
     type: FILTER_PRODUCTS,
+  };
+};
+export const clearFilter = () => {
+  return {
+    type: CLEAR_FILTER,
   };
 };

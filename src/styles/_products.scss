@@ -70,6 +70,7 @@
     &-list {
       margin-top: 0.675rem;
       li {
+        text-transform: capitalize;
         color: $slategray;
         font-size: 14px;
         font-weight: 400;
@@ -88,10 +89,19 @@
   }
 
   &__company {
+    select {
+      text-transform: capitalize;
+    }
   }
   &__colors {
     span {
       display: inline-block;
+      margin-right: 0.625rem;
+      font-size: 14px;
+      font-weight: 400;
+      cursor: pointer;
+      width: 1.25rem;
+      height: 1.25rem;
       svg {
         position: absolute;
         left: 0;

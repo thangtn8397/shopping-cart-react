@@ -1,26 +1,30 @@
-import React, { useState } from "react";
-import { category, companies, colors } from "../../../../constants";
+import React, { useState, useEffect } from "react";
 import CheckIcon from "@material-ui/icons/Check";
 import { connect } from "react-redux";
 import { updateFilter } from "../../../../store/actions";
+import { getUniquevalue } from "../../../../helper";
+import { clearFilter } from "../../../../store/actions/productsAction";
 
-const Sidebar = ({ onUpdateFilter }) => {
-  const [filterCategory, setFilterCategory] = useState(category);
-  const [filterColor, setFilterColor] = useState("all");
-  const [filterPrice, setFilterPrice] = useState(0.0);
-  const [filterShipping, setFilterShipping] = useState(false);
-
-  const setActive = (index) => {
-    setFilterCategory(
-      filterCategory.map((item) =>
-        item.filter === index
-          ? { ...item, active: true }
-          : { ...item, active: false }
-      )
-    );
-  };
+const Sidebar = ({ onUpdateFilter, onClearFilter, products, filters }) => {
+  const {
+    category,
+    company,
+    color,
+    price,
+    min_price,
+    max_price,
+    shipping,
+  } = filters;
+  const categories = ["all", ...getUniquevalue(products, "category")];
+  const companies = ["all", ...getUniquevalue(products, "company")];
+  const colors = ["all", ...getUniquevalue(products, "colors")];
   return (
-    <div className="sidebar">
+    <form
+      className="sidebar"
+      onSubmit={(e) => {
+        e.preventDefault();
+      }}
+    >
       <div className="sidebar__searchbar">
         <input
           type="text"
@@ -32,20 +36,26 @@ const Sidebar = ({ onUpdateFilter }) => {
       <div className="sidebar__category sidebar__filter">
         <h4>Category</h4>
         <ul className="sidebar__category-list">
-          {filterCategory.map((item) => (
+          {categories.map((item) => (
             <li
-              className={item.active ? "active" : ""}
-              key={item.filter}
-              onClick={() => setActive(item.filter)}
+              className={item === category ? "active" : ""}
+              key={item}
+              onClick={() => {
+                onUpdateFilter("category", item);
+              }}
             >
-              <span>{item.displayName}</span>
+              <span>{item}</span>
             </li>
           ))}
         </ul>
       </div>
       <div className="sidebar__company sidebar__filter">
         <h4>Company</h4>
-        <select name="" id="">
+        <select
+          value={company}
+          name="company"
+          onChange={(e) => onUpdateFilter("company", e.target.value)}
+        >
           {companies.map((company) => (
             <option
               className="sidebar__company-item"
@@ -59,29 +69,38 @@ const Sidebar = ({ onUpdateFilter }) => {
       </div>
       <div className="sidebar__colors sidebar__filter">
         <h4>Colors</h4>
-        <span onClick={() => setFilterColor("all")}>All</span>
-        {colors.map((color) => (
-          <span
-            className="select-color"
-            key={color}
-            style={{ backgroundColor: `${color}` }}
-            onClick={() => setFilterColor(color)}
-          >
-            {filterColor === color ? <CheckIcon /> : null}
-          </span>
-        ))}
+        {colors.map((colorItem) =>
+          colorItem !== "all" ? (
+            <span
+              className="select-color"
+              key={colorItem}
+              style={{ backgroundColor: `${colorItem}` }}
+              onClick={() => {
+                onUpdateFilter("color", colorItem);
+              }}
+            >
+              {color === colorItem ? <CheckIcon /> : null}
+            </span>
+          ) : (
+            <span
+              style={color === "all" ? { borderBottom: "1px solid #ccc" } : {}}
+              onClick={() => onUpdateFilter("color", "all")}
+            >
+              All
+            </span>
+          )
+        )}
       </div>
       <div className="sidebar__price sidebar__filter">
         <h4>Price</h4>
-        <div className="sidebar__price-value">${filterPrice}</div>
+        <div className="sidebar__price-value">${price}</div>
         <input
           type="range"
           name="price"
-          id=""
-          value={filterPrice}
-          min={0.0}
-          max={100}
-          onChange={(e) => setFilterPrice(e.target.value)}
+          value={price}
+          min={min_price}
+          max={max_price}
+          onChange={(e) => onUpdateFilter("price", e.target.value)}
         />
       </div>
       <div className="sidebar__shipping">
@@ -89,22 +108,29 @@ const Sidebar = ({ onUpdateFilter }) => {
         <input
           type="checkbox"
           name="shipping"
-          id=""
-          checked={filterShipping}
-          onClick={() => setFilterShipping(!filterShipping)}
+          id="shipping"
+          checked={shipping}
+          onChange={(e) => {
+            onUpdateFilter("shipping", e.target.checked);
+          }}
         />
       </div>
-      <button>clear filter</button>
-    </div>
+      <button onClick={() => onClearFilter()}>clear filter</button>
+    </form>
   );
 };
 
 const mapStateToProps = (state) => {
-  return {};
+  return {
+    text: state.productsReducer.filters.text,
+    products: state.productsReducer.products,
+    filters: state.productsReducer.filters,
+  };
 };
 const mapDispatchToProps = (dispatch) => {
   return {
     onUpdateFilter: (key, value) => dispatch(updateFilter(key, value)),
+    onClearFilter: () => dispatch(clearFilter()),
   };
 };
 

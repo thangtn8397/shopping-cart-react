@@ -39,4 +39,20 @@ export const checkValidity = (value, rules) => {
   return isValid;
 };
 
-export const sortProducts = (products, filter) => {};
+export const getUniquevalue = (array, identifier) => {
+  let tempArray = [];
+  array.map((item) => {
+    if (Array.isArray(item[identifier])) {
+      item[identifier].map((value) => {
+        if (!tempArray.includes(value)) {
+          tempArray.push(value);
+        }
+      });
+    } else {
+      if (!tempArray.includes(item[identifier])) {
+        tempArray.push(item[identifier]);
+      }
+    }
+  });
+  return tempArray;
+};
