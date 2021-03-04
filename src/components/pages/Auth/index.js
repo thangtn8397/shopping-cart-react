@@ -3,7 +3,6 @@ import PageHero from "../../PageHero";
 import Input from "../../UI/Input";
 import Spinner from "../../UI/Spinner";
 import { authFormConfig } from "../../../constants";
-import { checkValidityInput } from "../../../helper";
 import { connect } from "react-redux";
 import { auth } from "../../../store/actions/authAction";
 import { Redirect } from "react-router-dom";
@@ -14,33 +13,6 @@ const Auth = ({ onAuth, loading, isAuthenticated, error }) => {
   const { formElementsArray, inputChangedHandler, formData } = useForm(
     authFormConfig
   );
-  //  const [authForm, setAuthForm] = useState({
-  //    form: authFormConfig,
-  //    formValid: true,
-  //  });
-  //
-  //  const formElementsArray = [];
-  //  for (let key in authForm.form) {
-  //    formElementsArray.push({
-  //      id: key,
-  //      config: authForm.form[key],
-  //    });
-  //  }
-  //
-  //  const inputChangedHandler = (event, key) => {
-  //    const tempForm = { ...authForm.form };
-  //    const tempValue = { ...tempForm[key] };
-  //    tempValue.value = event.target.value;
-  //    tempValue.valid = checkValidityInput(event.target.value, tempValue.rules);
-  //    tempValue.touched = true;
-  //    tempForm[key] = tempValue;
-  //    let formValid = true;
-  //    for (let key in authForm.form) {
-  //      formValid = authForm.form[key].valid && formValid;
-  //    }
-  //    setAuthForm({ form: tempForm, formValid: formValid });
-  //  };
-  //
   const submitFormHandler = (e) => {
     e.preventDefault();
     const email = formData.formDetail.email.value;
@@ -79,6 +51,7 @@ const Auth = ({ onAuth, loading, isAuthenticated, error }) => {
           elementConfig={element.config.elementConfig}
           value={element.config.value}
           label={element.config.label}
+          shouldValidate={element.config.rules}
           touched={element.config.touched}
           invalid={!element.config.valid}
           onChanged={(event) => inputChangedHandler(event, element.id)}
@@ -87,7 +60,7 @@ const Auth = ({ onAuth, loading, isAuthenticated, error }) => {
       <button
         type="submit"
         className="auth__form-btn"
-        disabled={formData.formValid}
+        disabled={!formData.formValid}
       >
         {isLogin ? "Login" : "Register"}
       </button>

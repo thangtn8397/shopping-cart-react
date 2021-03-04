@@ -100,7 +100,6 @@ export const clearWishlistFailed = (error) => {
 };
 
 export const fetchItemWishlist = (userId) => {
-  console.log(userId);
   return (dispatch) => {
     axios
       .get(`https://ecommerce-31a69.firebaseio.com/wishlist/${userId}.json`)

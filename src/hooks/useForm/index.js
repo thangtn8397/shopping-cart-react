@@ -33,7 +33,7 @@ export const useForm = (form) => {
 
     let isFormValid = true;
     for (let key in updateForm) {
-      isFormValid = updateForm[key].isValid && isFormValid;
+      isFormValid = updateForm[key].valid && isFormValid;
     }
     setFormData({ formDetail: updateForm, formValid: isFormValid });
   };

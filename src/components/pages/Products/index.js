@@ -49,7 +49,7 @@ const Products = ({
           inWishlist={arrayIdItemWishlist.includes(product.id)}
           product={product}
           addToCart={() =>
-            onAddToCart(selectedItem(products, 1, product.colors[0]))
+            onAddToCart(selectedItem(product, 1, product.colors[0]))
           }
           openQuickview={() => {
             setWatchingItem(product);
@@ -63,7 +63,7 @@ const Products = ({
 
   return (
     <div className="products">
-      <PageHero products={true} />
+      <PageHero link="Products" />
       <div className="products__wrapper container wrapper">
         <Sidebar />
         <div className="products__items">

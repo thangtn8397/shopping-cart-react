@@ -3,12 +3,16 @@ import {
   AUTH_SUCCESS,
   AUTH_START,
   AUTH_LOGOUT,
+  ORDER_START,
+  ORDER_SUCCESS,
+  ORDER_FAILED,
 } from "../../../constants";
 const initialState = {
   token: null,
   userId: null,
   loading: false,
   error: null,
+  authPath: "/",
 };
 
 export const authReducer = (state = initialState, action) => {
@@ -42,6 +46,25 @@ export const authReducer = (state = initialState, action) => {
         userId: null,
         error: null,
       };
+    case ORDER_START:
+      return {
+        ...state,
+        loading: true,
+      };
+    case ORDER_SUCCESS: {
+      return {
+        ...state,
+        loading: false,
+      };
+    }
+    case ORDER_FAILED: {
+      return {
+        ...state,
+        loading: false,
+        error: action.error,
+      };
+    }
+
     default: {
       return state;
     }

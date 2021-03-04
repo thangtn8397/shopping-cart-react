@@ -17,7 +17,7 @@ const CheckoutSummaryItem = ({ cartItem, onRemoveItem }) => {
           Quantity: <span>{cartItem.quantity}</span>
         </h6>
         <h6 className="checkout-summary-item__color">
-          Color:
+          <span className="checkout-summary-item__color-text">Color:</span>
           <span
             className="select-color"
             style={{

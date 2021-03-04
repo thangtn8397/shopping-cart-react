@@ -17,4 +17,11 @@
       color: $indianred;
     }
   }
+  &__slash {
+    margin: 0 1.25rem;
+  }
+  &__link {
+    color: #453227;
+    text-transform: capitalize;
+  }
 }

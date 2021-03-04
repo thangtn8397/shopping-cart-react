@@ -18,7 +18,7 @@ const SingleProduct = ({ onFetchSingleProduct, product, wishlist }) => {
 
   return (
     <>
-      <PageHero link="Product" />
+      <PageHero products={true} link={product ? product.name : ""} />
       {productInfo}
     </>
   );

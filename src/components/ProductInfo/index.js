@@ -9,6 +9,7 @@ import RemoveIcon from "@material-ui/icons/Remove";
 import { selectedItem } from "../../helper/index";
 import { addToCart, addToWishlist } from "../../store/actions";
 import { connect } from "react-redux";
+import { useHistory } from "react-router-dom";
 
 const ProductInfo = ({
   product,
@@ -16,16 +17,27 @@ const ProductInfo = ({
   inWishlist,
   onAddToWishlist,
   userId,
+  isAuthenticated,
 }) => {
   const [selectedColor, setSelectedColor] = useState(null);
   const [selectedQuantity, setSelectedQuantity] = useState(1);
   const [isInWishlist, setIsInWishlist] = useState(inWishlist);
+  const history = useHistory();
 
   useEffect(() => {
     if (!selectedColor) setSelectedColor(product.colors[0]);
     setIsInWishlist(inWishlist);
-    //test ? setIsInWishlist(test.includes(product.id)) : setIsInWishlist();
   }, []);
+
+  const clickedWishlistIconHandle = () => {
+    if (isAuthenticated) {
+      onAddToWishlist(selectedItem(product, 1, selectedColor), userId);
+      setIsInWishlist(true);
+    } else {
+      history.push("/auth");
+    }
+  };
+
   const productInfo = product ? (
     <>
       <div className="product-info__image">
@@ -106,13 +118,7 @@ const ProductInfo = ({
             <button
               disabled={isInWishlist}
               className="product-info__addtocart-wishlist"
-              onClick={() => {
-                onAddToWishlist(
-                  selectedItem(product, 1, selectedColor),
-                  userId
-                );
-                setIsInWishlist(true);
-              }}
+              onClick={() => clickedWishlistIconHandle()}
             >
               <FavoriteBorderIcon
                 style={isInWishlist ? { color: "red" } : { color: "#000" }}
@@ -139,6 +145,7 @@ const mapStateToProps = (state) => {
   return {
     wishlist: state.wishlistReducer.items,
     userId: state.authReducer.userId,
+    isAuthenticated: state.authReducer.token !== null,
   };
 };
 export default connect(mapStateToProps, mapDispathToProps)(ProductInfo);

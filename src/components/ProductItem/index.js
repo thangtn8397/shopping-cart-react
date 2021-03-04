@@ -26,10 +26,10 @@ const ProductItem = ({
     setIsWishlist(inWishlist);
   }, [inWishlist]);
 
-  const wishlistItem = selectedItem(product, 1, product.colors[0]);
   const clickedWishlistIcon = () => {
     if (isAuthenticated) {
-      if (!inWishlist) {
+      if (!isWishlist) {
+        const wishlistItem = selectedItem(product, 1, product.colors[0]);
         onAddToWishlist(wishlistItem, userId);
         setIsWishlist(true);
       } else {
@@ -56,25 +56,32 @@ const ProductItem = ({
           <div className="product-item__actions">
             <button
               className="product-item__actions--wishlist"
-              onClick={() => clickedWishlistIcon()}
+              disabled={isWishlist}
+              onClick={() => {
+                clickedWishlistIcon();
+              }}
             >
-              <FavoriteBorderIcon
-                style={isWishlist ? { color: "red" } : { color: "#fff" }}
-              />
+              <span>
+                <FavoriteBorderIcon
+                  style={isWishlist ? { color: "red" } : { color: "#fff" }}
+                />
+              </span>
             </button>
 
             <button
               className="product-item__actions--addtocart"
               onClick={addToCart}
             >
-              Add To Cart
+              <span>Add To Cart</span>
               <ShoppingCartIcon />
             </button>
             <button
               className="product-item__actions--quickview"
               onClick={openQuickview}
             >
-              <VisibilityIcon />
+              <span>
+                <VisibilityIcon />
+              </span>
             </button>
           </div>
         </div>

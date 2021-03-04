@@ -4,8 +4,9 @@ const Input = (props) => {
   let inputElement = null;
   const classNameInput = ["input__inputElement"];
   if (props.touched) classNameInput.push("touched");
-  if (props.shouldValidate && props.invalid && props.touched)
+  if (props.shouldValidate && props.invalid && props.touched) {
     classNameInput.push("invalid");
+  }
   switch (props.elementType) {
     case "input":
       inputElement = (

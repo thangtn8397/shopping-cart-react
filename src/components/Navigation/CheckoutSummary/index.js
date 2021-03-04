@@ -20,7 +20,7 @@ const CheckoutSummary = ({ items, open }) => {
             <button onClick={() => history.push("/cart")}>
               <span>view cart</span>
             </button>
-            <button>
+            <button onClick={() => history.push("/checkout")}>
               <span>checkout</span>
             </button>
           </div>

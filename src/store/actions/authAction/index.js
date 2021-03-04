@@ -3,6 +3,10 @@ import {
   AUTH_SUCCESS,
   AUTH_START,
   AUTH_LOGOUT,
+  FETCH_ORDERS_START,
+  ORDER_START,
+  ORDER_SUCCESS,
+  ORDER_FAILED,
 } from "../../../constants";
 import axios from "axios";
 import { toast } from "react-toastify";
@@ -87,5 +91,37 @@ export const checkAuthState = () => {
         dispatch(checkAuthTimeout((temp - new Date().getTime()) / 1000));
       }
     }
+  };
+};
+
+export const order = (userId, orderDetail) => {
+  return (dispatch) => {
+    dispatch(orderStart());
+    axios
+      .post(
+        `https://ecommerce-31a69.firebaseio.com/orders/${userId}.json`,
+        orderDetail
+      )
+      .then((res) => dispatch(orderSuccess()))
+      .catch((error) => dispatch(orderFailed(error)));
+  };
+};
+
+export const orderStart = () => {
+  return {
+    type: ORDER_START,
+  };
+};
+
+export const orderSuccess = () => {
+  return {
+    type: ORDER_SUCCESS,
+  };
+};
+
+export const orderFailed = (error) => {
+  return {
+    type: ORDER_FAILED,
+    error,
   };
 };

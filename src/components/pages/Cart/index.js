@@ -4,7 +4,7 @@ import CartItem from "./CartItem";
 import { getTotalPrice } from "../../../helper";
 import { connect } from "react-redux";
 import ShoppingCartOutlinedIcon from "@material-ui/icons/ShoppingCartOutlined";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import {
   incrementQuantity,
   decrementQuantity,
@@ -19,6 +19,7 @@ function Cart({
   onRemoveItemInCart,
   onClearCart,
 }) {
+  const history = useHistory();
   const totalPrice = getTotalPrice(cartItems);
   let shippingFee = 0;
   let cartElement = null;
@@ -64,7 +65,10 @@ function Cart({
                 <p>${totalPrice + shippingFee}</p>
               </div>
             </div>
-            <button className="cart__bill-btnProceed">
+            <button
+              className="cart__bill-btnProceed"
+              onClick={() => history.push("/checkout")}
+            >
               Proceed to checkout
             </button>
           </div>

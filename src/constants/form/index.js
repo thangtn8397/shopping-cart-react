@@ -97,3 +97,59 @@ export const updatePasswordForm = {
     },
   },
 };
+
+export const billingDetailsForm = {
+  firstName: {
+    elementType: "input",
+    label: "First Name",
+    elementConfig: {
+      type: "text",
+    },
+    value: "",
+    valid: false,
+    touched: false,
+    rules: {
+      required: true,
+    },
+  },
+  lastName: {
+    elementType: "input",
+    label: "Last Name",
+    elementConfig: {
+      type: "text",
+    },
+    value: "",
+    valid: false,
+    touched: false,
+    rules: {},
+  },
+
+  phoneNumber: {
+    elementType: "input",
+    label: "Phone Number",
+    elementConfig: {
+      type: "text",
+    },
+    value: "",
+    valid: false,
+    touched: false,
+    rules: {
+      required: true,
+      isNumeric: true,
+    },
+  },
+
+  address: {
+    elementType: "input",
+    label: "Address",
+    elementConfig: {
+      type: "text",
+    },
+    value: "",
+    valid: false,
+    touched: false,
+    rules: {
+      required: true,
+    },
+  },
+};
