@@ -6,6 +6,7 @@ import { updatePasswordForm, userInfoAccount } from "../../../constants/form";
 import { logout } from "../../../store/actions";
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
+import OrderHistory from "./OrderHistory";
 
 const UserInfo = ({ isAuthenticated, onLogout }) => {
   const [editing, setEditing] = useState(1);
@@ -42,7 +43,7 @@ const UserInfo = ({ isAuthenticated, onLogout }) => {
     userInfoElement = <Wishlist />;
   }
   if (active === "order") {
-    userInfoElement = <div>order history</div>;
+    userInfoElement = <OrderHistory />;
   }
   const redirect = isAuthenticated ? null : <Redirect to="/auth" />;
 

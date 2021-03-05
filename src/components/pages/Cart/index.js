@@ -10,6 +10,7 @@ import {
   decrementQuantity,
   clearCart,
   removeItemInCart,
+  setAuthRedirectPath,
 } from "../../../store/actions";
 
 function Cart({
@@ -18,6 +19,8 @@ function Cart({
   onDecrementQuantity,
   onRemoveItemInCart,
   onClearCart,
+  onSetAuthRedirectPath,
+  isAuthenticated,
 }) {
   const history = useHistory();
   const totalPrice = getTotalPrice(cartItems);
@@ -67,7 +70,12 @@ function Cart({
             </div>
             <button
               className="cart__bill-btnProceed"
-              onClick={() => history.push("/checkout")}
+              onClick={() => {
+                history.push("/checkout");
+                if (!isAuthenticated) {
+                  onSetAuthRedirectPath("/checkout");
+                }
+              }}
             >
               Proceed to checkout
             </button>
@@ -100,6 +108,7 @@ function Cart({
 const mapStateToProps = (state) => {
   return {
     cartItems: state.cartReducer.items,
+    isAuthenticated: state.authReducer.token !== null,
   };
 };
 const mapDispatchToProps = (dispatch) => {
@@ -108,6 +117,7 @@ const mapDispatchToProps = (dispatch) => {
     onDecrementQuantity: (id) => dispatch(decrementQuantity(id)),
     onRemoveItemInCart: (id) => dispatch(removeItemInCart(id)),
     onClearCart: () => dispatch(clearCart()),
+    onSetAuthRedirectPath: (path) => dispatch(setAuthRedirectPath(path)),
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Cart);

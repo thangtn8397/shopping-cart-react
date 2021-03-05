@@ -3,10 +3,13 @@ import {
   AUTH_SUCCESS,
   AUTH_START,
   AUTH_LOGOUT,
-  FETCH_ORDERS_START,
   ORDER_START,
   ORDER_SUCCESS,
   ORDER_FAILED,
+  SET_AUTH_REDIRECT_PATH,
+  FETCH_ORDERS_START,
+  FETCH_ORDERS_SUCCESS,
+  FETCH_ORDERS_FAILED,
 } from "../../../constants";
 import axios from "axios";
 import { toast } from "react-toastify";
@@ -123,5 +126,36 @@ export const orderFailed = (error) => {
   return {
     type: ORDER_FAILED,
     error,
+  };
+};
+
+export const fetchOrders = (userId) => {
+  return (dispatch) => {
+    dispatch({ type: FETCH_ORDERS_START });
+    axios
+      .get(`https://ecommerce-31a69.firebaseio.com/orders/${userId}.json`)
+      .then((res) => dispatch(fetchOrdersSuccess(res.data)))
+      .catch((error) => dispatch(fetchOrdersFailed(error)));
+  };
+};
+
+export const fetchOrdersSuccess = (orders) => {
+  return {
+    type: FETCH_ORDERS_SUCCESS,
+    orders,
+  };
+};
+
+export const fetchOrdersFailed = (error) => {
+  return {
+    type: FETCH_ORDERS_FAILED,
+    error,
+  };
+};
+
+export const setAuthRedirectPath = (path) => {
+  return {
+    type: SET_AUTH_REDIRECT_PATH,
+    path,
   };
 };

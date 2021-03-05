@@ -14,12 +14,6 @@ export {
   removeItemInCart,
 } from "./cartAction";
 
-export {
-  auth,
-  authFailed,
-  authSuccess,
-  logout,
-  checkAuthState,
-} from "./authAction";
+export * from "./authAction";
 
 export * from "./wishlistAction";

@@ -6,9 +6,15 @@ import KeyboardArrowLeftIcon from "@material-ui/icons/KeyboardArrowLeft";
 import { useHistory } from "react-router-dom";
 import { connect } from "react-redux";
 import { order } from "../../../../store/actions/authAction";
-import { v4 as uuidv4 } from "uuid";
+import { clearCart } from "../../../../store/actions/cartAction";
 
-const BillingDetails = ({ onOrder, userId, cartItems }) => {
+const BillingDetails = ({
+  totalOrder,
+  onOrder,
+  userId,
+  cartItems,
+  onClearCart,
+}) => {
   const { formElementsArray, inputChangedHandler, formData } = useForm(
     billingDetailsForm
   );
@@ -16,16 +22,16 @@ const BillingDetails = ({ onOrder, userId, cartItems }) => {
 
   const createOrder = () => {
     return {
-      [uuidv4()]: {
-        shippingInfo: {
-          lastName: formData.formDetail.lastName.value,
-          firstName: formData.formDetail.firstName.value,
-          address: formData.formDetail.address.value,
-          phoneNumber: formData.formDetail.phoneNumber.value,
-        },
-        items: {
-          ...cartItems,
-        },
+      date: new Date(),
+      total: totalOrder,
+      shippingInfo: {
+        lastName: formData.formDetail.lastName.value,
+        firstName: formData.formDetail.firstName.value,
+        address: formData.formDetail.address.value,
+        phoneNumber: formData.formDetail.phoneNumber.value,
+      },
+      items: {
+        ...cartItems,
       },
     };
   };
@@ -36,6 +42,7 @@ const BillingDetails = ({ onOrder, userId, cartItems }) => {
       onSubmit={(e) => {
         e.preventDefault();
         onOrder(userId, createOrder());
+        onClearCart();
       }}
     >
       <h2>Billing Details</h2>
@@ -72,6 +79,7 @@ const BillingDetails = ({ onOrder, userId, cartItems }) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     onOrder: (userId, orderDetail) => dispatch(order(userId, orderDetail)),
+    onClearCart: () => dispatch(clearCart(true)),
   };
 };
 const mapStateToProps = (state) => {

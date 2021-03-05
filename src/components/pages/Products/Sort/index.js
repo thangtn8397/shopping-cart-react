@@ -20,6 +20,7 @@ const Sort = ({ onUpdateSort, productsNumber }) => {
       <div className="products__items__sort-right">
         <label>Sort by</label>
         <select onChange={(e) => onUpdateSort(e.target.value)}>
+          <option value="">Default</option>
           <option value="price-lowest">Price lowest</option>
           <option value="price-highest">Price hightest</option>
           <option value="a-z">Sort by: a-z</option>

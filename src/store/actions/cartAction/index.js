@@ -30,14 +30,15 @@ export const removeItemInCart = (id) => {
   };
 };
 
-export const clearCart = () => {
+export const clearCart = (isCheckout) => {
   return (dispatch) => {
     dispatch({
       type: CLEAR_CART,
     });
-    toast.error("Removed all from cart", {
-      position: toast.POSITION.BOTTOM_LEFT,
-    });
+    if (!isCheckout)
+      toast.error("Removed all from cart", {
+        position: toast.POSITION.BOTTOM_LEFT,
+      });
   };
 };
 

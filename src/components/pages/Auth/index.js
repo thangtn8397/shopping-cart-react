@@ -1,33 +1,46 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import PageHero from "../../PageHero";
 import Input from "../../UI/Input";
 import Spinner from "../../UI/Spinner";
 import { authFormConfig } from "../../../constants";
 import { connect } from "react-redux";
-import { auth } from "../../../store/actions/authAction";
+import { auth, setAuthRedirectPath } from "../../../store/actions/authAction";
 import { Redirect } from "react-router-dom";
 import { useForm } from "../../../hooks/useForm";
 
-const Auth = ({ onAuth, loading, isAuthenticated, error }) => {
+const Auth = ({
+  onAuth,
+  loading,
+  isAuthenticated,
+  error,
+  path,
+  onSetAuthRedirectPath,
+  authRedirectPath,
+}) => {
   const [isLogin, setIsLogin] = useState(true);
   const { formElementsArray, inputChangedHandler, formData } = useForm(
     authFormConfig
   );
+
+  useEffect(() => {
+    if (authRedirectPath === "/checkout") onSetAuthRedirectPath("/my-account");
+  }, [authRedirectPath]);
+
   const submitFormHandler = (e) => {
     e.preventDefault();
     const email = formData.formDetail.email.value;
     const password = formData.formDetail.password.value;
     onAuth(email, password, isLogin);
+    //onSetAuthRedirectPath("/my-account");
   };
 
   const errorMessage = error ? (
     <p className="auth__form-error">{error.message}</p>
   ) : null;
-  const authRedirect = isAuthenticated ? <Redirect to="/my-account" /> : null;
+  const authRedirect = isAuthenticated ? <Redirect to={path} /> : null;
 
   const formElements = !loading ? (
     <div className="auth__form-wrapper">
-      {authRedirect}
       <div className="auth__form-switch">
         <h3
           className={isLogin ? "active" : ""}
@@ -69,20 +82,26 @@ const Auth = ({ onAuth, loading, isAuthenticated, error }) => {
     <Spinner />
   );
   return (
-    <div className="auth">
-      <PageHero products={false} link="Auth" />
-      <section className="container wrapper">
-        <form
-          className="auth__form"
-          onSubmit={(e) => {
-            e.preventDefault();
-            submitFormHandler(e);
-          }}
-        >
-          {formElements}
-        </form>
-      </section>
-    </div>
+    <>
+      {authRedirect !== null ? (
+        authRedirect
+      ) : (
+        <div className="auth">
+          <PageHero products={false} link="Auth" />
+          <section className="container wrapper">
+            <form
+              className="auth__form"
+              onSubmit={(e) => {
+                e.preventDefault();
+                submitFormHandler(e);
+              }}
+            >
+              {formElements}
+            </form>
+          </section>
+        </div>
+      )}
+    </>
   );
 };
 
@@ -90,13 +109,16 @@ const mapDispatchToProps = (dispatch) => {
   return {
     onAuth: (email, password, isLogin) =>
       dispatch(auth(email, password, isLogin)),
+    onSetAuthRedirectPath: (path) => dispatch(setAuthRedirectPath(path)),
   };
 };
 const mapStateToProps = (state) => {
   return {
     loading: state.authReducer.loading,
     isAuthenticated: state.authReducer.token !== null,
+    authRedirectPath: state.authReducer.authRedirectPath,
     error: state.authReducer.error,
+    path: state.authReducer.authRedirectPath,
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Auth);
