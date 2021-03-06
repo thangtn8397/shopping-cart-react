@@ -22,7 +22,9 @@ const WishlistItem = ({ item, removeItem, addToCartFromWishlist }) => {
         </div>
       </div>
       <button onClick={addToCartFromWishlist}>Add to cart</button>
-      <p className="wishlist-item__removeText">Remove from wishlist</p>
+      <p className="wishlist-item__removeText" onClick={removeItem}>
+        Remove from wishlist
+      </p>
     </div>
   );
 };

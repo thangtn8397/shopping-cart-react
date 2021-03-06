@@ -1,6 +1,7 @@
 .checkout {
   &__wrapper {
     display: flex;
+    justify-content: center;
     max-width: 1200px;
   }
   &__billingDetails {

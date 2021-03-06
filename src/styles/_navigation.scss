@@ -92,6 +92,7 @@
     font-size: 1.5625rem;
     cursor: pointer;
     position: relative;
+    color: $darkBlue;
     &:not(:last-child) {
       margin-right: 1.25rem;
     }

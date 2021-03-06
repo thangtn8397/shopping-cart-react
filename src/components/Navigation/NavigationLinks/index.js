@@ -21,9 +21,9 @@ const NavigationLinks = ({ isAuthenticated, items, onLogOut }) => {
           Logout
         </div>
       ) : null}
-      <div className="navigation-links__item hide-for-desktop">
-        <AccountBoxIcon onClick={() => history.push("my-account")} />
-      </div>
+      <Link to="my-account" className="navigation-links__item hide-for-desktop">
+        <AccountBoxIcon />
+      </Link>
       <div className="navigation-links__item hide-for-mobile">
         <AccountBoxIcon
           onClick={() => setOpenAccountToggle(!openAccountToggle)}

@@ -68,7 +68,10 @@ const BillingDetails = ({
           <KeyboardArrowLeftIcon />
           Return to cart
         </span>
-        <button disabled={!formData.formValid} type="submit">
+        <button
+          disabled={!formData.formValid || !cartItems.length}
+          type="submit"
+        >
           Order
         </button>
       </div>

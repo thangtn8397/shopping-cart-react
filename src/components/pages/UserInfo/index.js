@@ -1,14 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import PageHero from "../../PageHero";
 import UserInfoItem from "./UserInfoItem";
 import Wishlist from "./Wishlist";
 import { updatePasswordForm, userInfoAccount } from "../../../constants/form";
-import { logout } from "../../../store/actions";
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import OrderHistory from "./OrderHistory";
 
-const UserInfo = ({ isAuthenticated, onLogout }) => {
+const UserInfo = ({ isAuthenticated }) => {
   const [editing, setEditing] = useState(1);
   const [active, setActive] = useState("account");
   let userInfoElement = null;
@@ -75,9 +74,6 @@ const UserInfo = ({ isAuthenticated, onLogout }) => {
           </h3>
         </div>
         {userInfoElement}
-        <button className="userInfo__logoutBtn" onClick={() => onLogout()}>
-          Logout
-        </button>
       </div>
     </div>
   );
@@ -88,9 +84,5 @@ const mapStateToProps = (state) => {
     isAuthenticated: state.authReducer.token !== null,
   };
 };
-const mapDispatchToProps = (dispatch) => {
-  return {
-    onLogout: () => dispatch(logout()),
-  };
-};
-export default connect(mapStateToProps, mapDispatchToProps)(UserInfo);
+
+export default connect(mapStateToProps)(UserInfo);

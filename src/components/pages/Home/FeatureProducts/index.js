@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import ProductItem from "../../../ProductItem";
 import { Link } from "react-router-dom";
+import { fetchProducts } from "../../../../store/actions";
+import { connect } from "react-redux";
 
-const FeatureProducts = () => {
+const FeatureProducts = ({ featureProduct, onFetchProducts }) => {
+  useEffect(() => onFetchProducts(), []);
   return (
     <section className="feature-products">
       <div className="container wrapper">
@@ -11,12 +14,9 @@ const FeatureProducts = () => {
           <span></span>
         </div>
         <div className="feature-products__grid">
-          {
-            // <ProductItem />
-            // <ProductItem />
-            // <ProductItem />
-            // <ProductItem />
-          }
+          {featureProduct.map((item) => (
+            <ProductItem product={item} />
+          ))}
         </div>
         <button className="feature-products__btn btn">
           <Link to="/products">All Products</Link>
@@ -25,5 +25,15 @@ const FeatureProducts = () => {
     </section>
   );
 };
+const mapStateToProps = (state) => {
+  return {
+    featureProduct: state.productsReducer.featureProducts,
+  };
+};
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onFetchProducts: () => dispatch(fetchProducts()),
+  };
+};
 
-export default FeatureProducts;
+export default connect(mapStateToProps, mapDispatchToProps)(FeatureProducts);

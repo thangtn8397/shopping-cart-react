@@ -16,6 +16,7 @@ import { getUniquevalue } from "../../../helper";
 const initialState = {
   products: [],
   filteredProducts: [],
+  featureProducts: [],
   product: null,
   loading: false,
   error: null,
@@ -44,11 +45,13 @@ export const productsReducer = (state = initialState, action) => {
       const prices = getUniquevalue(action.products, "price");
       const maxPrice = Math.max(...prices);
       const minPrice = Math.min(...prices);
+      const featuredProducts = action.products.filter((item) => item.featured);
       return {
         ...state,
         loading: false,
         products: action.products,
         filteredProducts: action.products,
+        featureProducts: featuredProducts,
         filters: {
           ...state.filters,
           max_price: maxPrice,

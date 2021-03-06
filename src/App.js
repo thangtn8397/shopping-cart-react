@@ -14,14 +14,19 @@ import { checkAuthState, fetchItemWishlist } from "./store/actions";
 import Checkout from "./components/pages/Checkout";
 import Footer from "./components/Footer";
 import About from "./components/pages/About";
+import Error from "./components/Error";
 
 function App({ onCheckAuthState, onInitWishlist, userId, cartItems }) {
   useEffect(() => {
     onCheckAuthState();
+  }, []);
+
+  useEffect(() => {
     if (userId) {
       onInitWishlist(userId);
     }
   }, [userId]);
+
   useEffect(() => {
     localStorage.setItem("cart", JSON.stringify(cartItems));
   }, [cartItems]);
@@ -38,6 +43,7 @@ function App({ onCheckAuthState, onInitWishlist, userId, cartItems }) {
           <Route exact path="/my-account" component={UserInfo} />
           <Route exact path="/checkout" component={Checkout} />
           <Route exact path="/about" component={About} />
+          <Route path="/*" component={Error} />
         </Switch>
         <Footer />
       </div>
