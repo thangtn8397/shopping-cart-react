@@ -40,6 +40,7 @@ function Cart({
         </div>
         {cartItems.map((item) => (
           <CartItem
+            key={item.cartItemId}
             cartItem={item}
             clickedAddIcon={() => onIncrementQuantity(item.cartItemId)}
             clickedRemoveIcon={() => onDecrementQuantity(item.cartItemId)}
@@ -50,7 +51,9 @@ function Cart({
           <button>
             <Link to="/products">Continue shopping</Link>
           </button>
-          <button onClick={() => onClearCart()}>clear shopping cart</button>
+          <button onClick={() => onClearCart()}>
+            <span>clear shopping cart</span>
+          </button>
         </article>
         <article className="cart__bill">
           <div className="cart__bill-wrapper">

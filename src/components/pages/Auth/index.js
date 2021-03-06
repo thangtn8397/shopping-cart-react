@@ -21,11 +21,11 @@ const Auth = ({
   const { formElementsArray, inputChangedHandler, formData } = useForm(
     authFormConfig
   );
-
-  useEffect(() => {
-    if (authRedirectPath === "/checkout") onSetAuthRedirectPath("/my-account");
-  }, [authRedirectPath]);
-
+  //
+  //  useEffect(() => {
+  //    if (authRedirectPath !== "/") onSetAuthRedirectPath(path);
+  //  }, [authRedirectPath]);
+  //
   const submitFormHandler = (e) => {
     e.preventDefault();
     const email = formData.formDetail.email.value;

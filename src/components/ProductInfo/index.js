@@ -7,7 +7,11 @@ import CheckIcon from "@material-ui/icons/Check";
 import AddIcon from "@material-ui/icons/Add";
 import RemoveIcon from "@material-ui/icons/Remove";
 import { selectedItem } from "../../helper/index";
-import { addToCart, addToWishlist } from "../../store/actions";
+import {
+  addToCart,
+  addToWishlist,
+  setAuthRedirectPath,
+} from "../../store/actions";
 import { connect } from "react-redux";
 import { useHistory } from "react-router-dom";
 
@@ -18,6 +22,7 @@ const ProductInfo = ({
   onAddToWishlist,
   userId,
   isAuthenticated,
+  onSetAuthRedirectPath,
 }) => {
   const [selectedColor, setSelectedColor] = useState(null);
   const [selectedQuantity, setSelectedQuantity] = useState(1);
@@ -35,6 +40,7 @@ const ProductInfo = ({
       setIsInWishlist(true);
     } else {
       history.push("/auth");
+      onSetAuthRedirectPath();
     }
   };
 
@@ -139,6 +145,7 @@ const mapDispathToProps = (dispatch) => {
   return {
     onAddToCart: (item) => dispatch(addToCart(item)),
     onAddToWishlist: (item, userId) => dispatch(addToWishlist(item, userId)),
+    onSetAuthRedirectPath: () => dispatch(setAuthRedirectPath("/my-account")),
   };
 };
 const mapStateToProps = (state) => {

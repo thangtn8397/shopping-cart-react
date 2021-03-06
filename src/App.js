@@ -13,14 +13,18 @@ import { connect } from "react-redux";
 import { checkAuthState, fetchItemWishlist } from "./store/actions";
 import Checkout from "./components/pages/Checkout";
 import Footer from "./components/Footer";
+import About from "./components/pages/About";
 
-function App({ onCheckAuthState, onInitWishlist, userId }) {
+function App({ onCheckAuthState, onInitWishlist, userId, cartItems }) {
   useEffect(() => {
     onCheckAuthState();
     if (userId) {
       onInitWishlist(userId);
     }
   }, [userId]);
+  useEffect(() => {
+    localStorage.setItem("cart", JSON.stringify(cartItems));
+  }, [cartItems]);
   return (
     <Layout>
       <div className="App">
@@ -33,6 +37,7 @@ function App({ onCheckAuthState, onInitWishlist, userId }) {
           <Route exact path="/auth" component={Auth} />
           <Route exact path="/my-account" component={UserInfo} />
           <Route exact path="/checkout" component={Checkout} />
+          <Route exact path="/about" component={About} />
         </Switch>
         <Footer />
       </div>
@@ -49,6 +54,7 @@ const mapDispatchToProps = (dispatch) => {
 const mapStateToProps = (state) => {
   return {
     userId: state.authReducer.userId,
+    cartItems: state.cartReducer.items,
   };
 };
 

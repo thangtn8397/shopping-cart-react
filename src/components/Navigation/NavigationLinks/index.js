@@ -13,7 +13,18 @@ const NavigationLinks = ({ isAuthenticated, items, onLogOut }) => {
   const history = useHistory();
   return (
     <div className="navigation-links">
-      <div className="navigation-links__item">
+      {isAuthenticated ? (
+        <div
+          className="navigation-links__item navigation-links__logout hide-for-desktop"
+          onClick={() => onLogOut()}
+        >
+          Logout
+        </div>
+      ) : null}
+      <div className="navigation-links__item hide-for-desktop">
+        <AccountBoxIcon onClick={() => history.push("my-account")} />
+      </div>
+      <div className="navigation-links__item hide-for-mobile">
         <AccountBoxIcon
           onClick={() => setOpenAccountToggle(!openAccountToggle)}
         />
@@ -25,9 +36,13 @@ const NavigationLinks = ({ isAuthenticated, items, onLogOut }) => {
           }
         >
           <li>
-            <Link to="/auth">{isAuthenticated ? "My Account" : "Login"}</Link>
+            {isAuthenticated ? (
+              <Link to="my-account">My Account</Link>
+            ) : (
+              <Link to="auth">Login</Link>
+            )}
           </li>
-          {isAuthenticated ? <li onClick={() => onLogOut()}>Logout</li> : null}
+          {isAuthenticated ? <li onClick={() => onLogOut()}>LogOut</li> : null}
         </ul>
       </div>
       <div className="navigation-links__item navigation-links__cart">

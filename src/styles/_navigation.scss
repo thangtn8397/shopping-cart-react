@@ -108,6 +108,8 @@
       opacity: 0;
       transform: translateY(-50%);
       transition: all 0.3s ease-in-out;
+      border: 1px solid #ccc;
+      border-top: none;
       &.open {
         visibility: visible;
         opacity: 1;
@@ -117,6 +119,11 @@
         font-size: 14px;
         &:not(:last-child) {
           margin-bottom: 0.675rem;
+        }
+        &:hover {
+          a {
+            color: $indianred;
+          }
         }
       }
     }

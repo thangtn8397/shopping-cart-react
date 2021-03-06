@@ -5,7 +5,7 @@ import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import StarRateIcon from "@material-ui/icons/StarRate";
 import { useHistory } from "react-router-dom";
 import { connect } from "react-redux";
-import { addToWishlist } from "../../store/actions";
+import { addToWishlist, setAuthRedirectPath } from "../../store/actions";
 import { selectedItem } from "../../helper";
 import { toast } from "react-toastify";
 
@@ -18,6 +18,7 @@ const ProductItem = ({
   isAuthenticated,
   inWishlist,
   openQuickview,
+  onSetAuthRedirectPath,
 }) => {
   const [isWishlist, setIsWishlist] = useState();
   const history = useHistory();
@@ -39,6 +40,8 @@ const ProductItem = ({
       }
     } else {
       history.push("/auth");
+
+      onSetAuthRedirectPath();
     }
   };
 
@@ -113,6 +116,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     onAddToWishlist: (item, userId) => dispatch(addToWishlist(item, userId)),
+    onSetAuthRedirectPath: () => dispatch(setAuthRedirectPath("/")),
   };
 };
 

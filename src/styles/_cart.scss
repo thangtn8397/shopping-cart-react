@@ -56,6 +56,9 @@
       }
     }
     &__priceSmall {
+      color: $indianred;
+      font-weight: 400;
+      margin-top: 0.675rem;
       @include breakpoint-up(medium) {
         display: none;
       }
@@ -73,13 +76,14 @@
       justify-content: space-between;
       align-items: center;
       font-weight: 600;
-      padding: 0.675rem 0;
+      padding: 0.675rem 6px;
       > p {
         margin: 0 0.675rem;
       }
       > button {
         background-color: transparent;
         color: $darkBlue;
+        padding: 0;
       }
     }
     &__subtotal {
@@ -99,11 +103,13 @@
     }
     > button {
       text-transform: capitalize;
+      position: relative;
       a {
         color: #fff;
       }
       &:last-child {
         background-color: $darkBlue;
+        color: white;
       }
     }
   }

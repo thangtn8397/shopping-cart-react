@@ -6,8 +6,17 @@ import {
   DECREMENT_QUANTITY,
 } from "../../../constants/index";
 import { v4 as uuidv4 } from "uuid";
+
+const getItemStorage = () => {
+  const cart = localStorage.getItem("cart");
+  if (cart) {
+    return JSON.parse(cart);
+  }
+  return [];
+};
+
 const initialState = {
-  items: [],
+  items: [...getItemStorage()],
 };
 
 export const cartReducer = (state = initialState, action) => {

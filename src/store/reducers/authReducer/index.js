@@ -16,7 +16,7 @@ const initialState = {
   userId: null,
   loading: false,
   error: null,
-  authRedirectPath: "/my-account",
+  authRedirectPath: "/",
   orders: null,
 };
 
@@ -50,6 +50,7 @@ export const authReducer = (state = initialState, action) => {
         token: null,
         userId: null,
         error: null,
+        authRedirectPath: "/",
       };
     case ORDER_START:
       return {
