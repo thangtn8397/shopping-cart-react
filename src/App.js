@@ -12,6 +12,7 @@ import UserInfo from "./components/pages/UserInfo";
 import { connect } from "react-redux";
 import { checkAuthState, fetchItemWishlist } from "./store/actions";
 import Checkout from "./components/pages/Checkout";
+import Footer from "./components/Footer";
 
 function App({ onCheckAuthState, onInitWishlist, userId }) {
   useEffect(() => {
@@ -33,6 +34,7 @@ function App({ onCheckAuthState, onInitWishlist, userId }) {
           <Route exact path="/my-account" component={UserInfo} />
           <Route exact path="/checkout" component={Checkout} />
         </Switch>
+        <Footer />
       </div>
     </Layout>
   );

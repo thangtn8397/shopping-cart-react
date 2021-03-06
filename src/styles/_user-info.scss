@@ -6,6 +6,10 @@
     margin: 0 auto;
   }
 
+  &__logoutBtn {
+    margin-top: 3rem;
+  }
+
   &__password {
     &-wrapper {
       visibility: hidden;

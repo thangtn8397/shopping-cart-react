@@ -117,15 +117,21 @@ export const orderStart = () => {
 };
 
 export const orderSuccess = () => {
-  return {
-    type: ORDER_SUCCESS,
+  return (dispatch) => {
+    dispatch({
+      type: ORDER_SUCCESS,
+    });
+    toast.success("Order success", { position: toast.POSITION.BOTTOM_LEFT });
   };
 };
 
 export const orderFailed = (error) => {
-  return {
-    type: ORDER_FAILED,
-    error,
+  return (dispatch) => {
+    dispatch({
+      type: ORDER_FAILED,
+      error,
+    });
+    toast.error("Order failed", { position: toast.POSITION.BOTTOM_LEFT });
   };
 };
 

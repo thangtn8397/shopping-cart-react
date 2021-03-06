@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Toolbar from "./Toolbar";
 import SideDrawer from "./SideDrawer";
+import Backdrop from "../UI/Backdrop";
 
 const Navigation = () => {
   const [openSideDrawer, setOpenSideDrawer] = useState(false);
@@ -10,7 +11,14 @@ const Navigation = () => {
         clickedToggleHandle={() => setOpenSideDrawer(!openSideDrawer)}
         openSideDrawer={openSideDrawer}
       />
-      <SideDrawer open={openSideDrawer} />
+      <SideDrawer
+        open={openSideDrawer}
+        closeSideDrawer={() => setOpenSideDrawer(false)}
+      />
+      <Backdrop
+        open={openSideDrawer}
+        clickedBackdrop={() => setOpenSideDrawer(false)}
+      />
     </header>
   );
 };

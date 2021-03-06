@@ -1,14 +1,16 @@
 import React from "react";
 import Banner from "./Banner";
-import Custom from "./Custom";
+import Services from "./Services";
 import FeatureProducts from "./FeatureProducts";
+import Contact from "./Contact";
 
 const Home = () => {
   return (
     <div className="home">
       <Banner />
       <FeatureProducts />
-      <Custom />
+      <Services />
+      <Contact />
     </div>
   );
 };

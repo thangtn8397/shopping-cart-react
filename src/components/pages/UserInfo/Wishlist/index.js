@@ -6,6 +6,8 @@ import {
   clearWishlist,
   removeFromWishlist,
 } from "../../../../store/actions";
+import ShoppingCartOutlinedIcon from "@material-ui/icons/ShoppingCartOutlined";
+import { Link } from "react-router-dom";
 
 const Wishlist = ({
   wishlist,
@@ -15,30 +17,43 @@ const Wishlist = ({
   onAddToCart,
   onClearWishlist,
 }) => {
-  const wishlistElements = wishlist
-    ? Object.keys(wishlist).map((key) => (
-        <WishlistItem
-          key={key}
-          item={wishlist[key]}
-          removeItem={() => onRemoveItem(userId, key, false)}
-          addToCartFromWishlist={() => {
-            onRemoveItem(userId, key, true);
-            onAddToCart(wishlist[key]);
-          }}
-        />
-      ))
-    : null;
+  const wishlistElements =
+    Object.keys(wishlist).length !== 0 ? (
+      <>
+        {Object.keys(wishlist).map((key) => (
+          <WishlistItem
+            key={key}
+            item={wishlist[key]}
+            removeItem={() => onRemoveItem(userId, key, false)}
+            addToCartFromWishlist={() => {
+              onRemoveItem(userId, key, true);
+              onAddToCart(wishlist[key]);
+            }}
+          />
+        ))}
+        <div className="wishlist__clearItems">
+          <button
+            disabled={loading || !Object.keys(wishlist).length}
+            onClick={() => onClearWishlist()}
+          >
+            Clear wishlist
+          </button>
+        </div>
+      </>
+    ) : (
+      <div className="cart__noItems">
+        <span className="cart__noItems-icon">
+          <ShoppingCartOutlinedIcon />
+        </span>
+        <p className="cart__noItems-text">Whoops...Nothing in here!!!</p>
+        <Link className="btn" to="/products">
+          Shop now
+        </Link>
+      </div>
+    );
   return (
     <div className="wishlist">
       <div className="wishlist__wrapper">{wishlistElements}</div>
-      <div className="wishlist__clearItems">
-        <button
-          disabled={loading || !Object.keys(wishlist).length}
-          onClick={() => onClearWishlist()}
-        >
-          Clear wishlist
-        </button>
-      </div>
     </div>
   );
 };

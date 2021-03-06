@@ -1,6 +1,7 @@
 import React from "react";
 import banner1 from "../../../../assets/hero-bcg.jpeg";
 import banner2 from "../../../../assets/hero-bcg-2.jpeg";
+import { Link } from "react-router-dom";
 const Banner = () => {
   return (
     <section className="banner container">
@@ -12,7 +13,9 @@ const Banner = () => {
           quidem ab, ratione reprehenderit voluptatibus expedita necessitatibus
           eum exercitationem consequuntur quia?
         </p>
-        <button>Shop now</button>
+        <button>
+          <Link to="/products">Shop now</Link>
+        </button>
       </article>
       <article className="banner__image">
         <img src={banner1} alt="" className="banner__image--img1" />

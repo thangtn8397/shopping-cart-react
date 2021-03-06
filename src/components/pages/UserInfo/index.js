@@ -52,15 +52,32 @@ const UserInfo = ({ isAuthenticated, onLogout }) => {
       <PageHero products={false} link="My Account" />
       {redirect}
       <div className="userInfo__wrapper container wrapper">
-        <button onClick={() => onLogout()}>Logout</button>
         <div className="userInfo__switch switch">
-          <h3 onClick={() => setActive("account")}>My Account</h3>
+          <h3
+            className={active === "account" ? "active" : ""}
+            onClick={() => setActive("account")}
+          >
+            My Account
+          </h3>
           <span></span>
-          <h3 onClick={() => setActive("wishlist")}>Wish List</h3>
+          <h3
+            className={active === "wishlist" ? "active" : ""}
+            onClick={() => setActive("wishlist")}
+          >
+            Wish List
+          </h3>
           <span></span>
-          <h3 onClick={() => setActive("order")}>Order History</h3>
+          <h3
+            className={active === "order" ? "active" : ""}
+            onClick={() => setActive("order")}
+          >
+            Order History
+          </h3>
         </div>
         {userInfoElement}
+        <button className="userInfo__logoutBtn" onClick={() => onLogout()}>
+          Logout
+        </button>
       </div>
     </div>
   );

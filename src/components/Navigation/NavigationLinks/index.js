@@ -5,16 +5,30 @@ import AccountBoxIcon from "@material-ui/icons/AccountBox";
 import { connect } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { Link } from "react-router-dom";
+import { logout } from "../../../store/actions";
 
-const NavigationLinks = ({ items }) => {
+const NavigationLinks = ({ isAuthenticated, items, onLogOut }) => {
   const [openCheckoutSummary, setOpenCheckoutSummary] = useState(false);
+  const [openAccountToggle, setOpenAccountToggle] = useState(false);
   const history = useHistory();
   return (
     <div className="navigation-links">
       <div className="navigation-links__item">
-        <Link to="/auth">
-          <AccountBoxIcon />
-        </Link>
+        <AccountBoxIcon
+          onClick={() => setOpenAccountToggle(!openAccountToggle)}
+        />
+        <ul
+          className={
+            openAccountToggle
+              ? "navigation-links__item-accountToggle open"
+              : "navigation-links__item-accountToggle"
+          }
+        >
+          <li>
+            <Link to="/auth">{isAuthenticated ? "My Account" : "Login"}</Link>
+          </li>
+          {isAuthenticated ? <li onClick={() => onLogOut()}>Logout</li> : null}
+        </ul>
       </div>
       <div className="navigation-links__item navigation-links__cart">
         <ShoppingCartIcon
@@ -35,7 +49,14 @@ const NavigationLinks = ({ items }) => {
 const mapStateToProps = (state) => {
   return {
     items: state.cartReducer.items,
+    isAuthenticated: state.authReducer.token !== null,
   };
 };
 
-export default connect(mapStateToProps)(NavigationLinks);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onLogOut: () => dispatch(logout()),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(NavigationLinks);
