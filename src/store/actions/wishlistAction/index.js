@@ -1,13 +1,13 @@
-import axios from "axios";
+import axios from "../../../axios";
 import { toast } from "react-toastify";
 import {
   ADD_TO_WISHLIST,
   ADD_TO_WISHLIST_SUCCESS,
   ADD_TO_WISHLIST_FAILED,
   REMOVE_FROM_WISHLIST_SUCCESS,
+  REMOVE_FROM_WISHLIST_FAILED,
   FETCH_ITEM_WISHLIST_SUCCESS,
   FETCH_ITEM_WISHLIST_FAILED,
-  REMOVE_FROM_WISHLIST,
   CLEAR_WISHLIST,
   CLEAR_WISHLIST_SUCCESS,
   CLEAR_WISHLIST_FAILED,
@@ -19,13 +19,9 @@ export const addToWishlist = (item, userId) => {
       type: ADD_TO_WISHLIST,
     });
     axios
-      .put(
-        `https://ecommerce-31a69.firebaseio.com/wishlist/${userId}/${item.id}.json`,
-        item
-      )
+      .put(`wishlist/${userId}/${item.id}.json`, item)
       .then((res) => {
-        dispatch(addToWishlistSuccess(item));
-        // dispatch(fetchItemWishlist(userId));
+        dispatch(addToWishlistSuccess(res.data));
       })
       .catch((error) => dispatch(addToWishlistFailed(error)));
   };
@@ -54,12 +50,13 @@ export const removeFromWishlist = (userId, itemId, isAddToCart) => {
         `https://ecommerce-31a69.firebaseio.com/wishlist/${userId}/${itemId}.json`
       )
       .then((res) => {
-        dispatch(removeFromWishlistSucces(itemId, isAddToCart));
-      });
+        dispatch(removeFromWishlistSuccess(itemId, isAddToCart));
+      })
+      .catch((error) => dispatch(removeFromWishlistFailed(error)));
   };
 };
 
-export const removeFromWishlistSucces = (itemId, isAddToCart) => {
+export const removeFromWishlistSuccess = (itemId, isAddToCart) => {
   return (dispatch) => {
     dispatch({ type: REMOVE_FROM_WISHLIST_SUCCESS, itemId });
     if (!isAddToCart) {
@@ -67,6 +64,15 @@ export const removeFromWishlistSucces = (itemId, isAddToCart) => {
         position: toast.POSITION.BOTTOM_LEFT,
       });
     }
+  };
+};
+
+export const removeFromWishlistFailed = (error) => {
+  return (dispatch) => {
+    dispatch({ type: REMOVE_FROM_WISHLIST_FAILED, error });
+    toast.warn("Remove item failed", {
+      position: toast.POSITION.BOTTOM_LEFT,
+    });
   };
 };
 

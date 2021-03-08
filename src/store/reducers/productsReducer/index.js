@@ -45,7 +45,11 @@ export const productsReducer = (state = initialState, action) => {
       const prices = getUniquevalue(action.products, "price");
       const maxPrice = Math.max(...prices);
       const minPrice = Math.min(...prices);
-      const featuredProducts = action.products.filter((item) => item.featured);
+      const featuredProducts = action.products
+        .map((item, index) =>
+          item.featured ? { ...item, index: index } : item
+        )
+        .filter((item) => item.featured);
       return {
         ...state,
         loading: false,

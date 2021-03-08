@@ -4,6 +4,12 @@ import {
   CLEAR_CART,
   INCREMENT_QUANTITY,
   DECREMENT_QUANTITY,
+  FETCH_ORDERS_START,
+  FETCH_ORDERS_SUCCESS,
+  FETCH_ORDERS_FAILED,
+  ORDER_START,
+  ORDER_SUCCESS,
+  ORDER_FAILED,
 } from "../../../constants/index";
 import { v4 as uuidv4 } from "uuid";
 
@@ -17,6 +23,8 @@ const getItemStorage = () => {
 
 const initialState = {
   items: [...getItemStorage()],
+  orders: null,
+  loading: false,
 };
 
 export const cartReducer = (state = initialState, action) => {
@@ -78,6 +86,47 @@ export const cartReducer = (state = initialState, action) => {
             : item
         ),
       };
+    case ORDER_START:
+      return {
+        ...state,
+        loading: true,
+      };
+    case ORDER_SUCCESS: {
+      return {
+        ...state,
+        loading: false,
+      };
+    }
+    case ORDER_FAILED: {
+      return {
+        ...state,
+        loading: false,
+        error: action.error,
+      };
+    }
+
+    case FETCH_ORDERS_START:
+      return {
+        ...state,
+        loading: true,
+      };
+    case FETCH_ORDERS_SUCCESS: {
+      return {
+        ...state,
+        loading: false,
+        orders: action.orders,
+        isOrdered: true,
+      };
+    }
+
+    case FETCH_ORDERS_FAILED: {
+      return {
+        ...state,
+        loading: false,
+        error: action.error,
+      };
+    }
+
     default:
       return state;
   }

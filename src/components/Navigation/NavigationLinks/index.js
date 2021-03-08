@@ -26,7 +26,9 @@ const NavigationLinks = ({ isAuthenticated, items, onLogOut }) => {
       </Link>
       <div className="navigation-links__item hide-for-mobile">
         <AccountBoxIcon
-          onClick={() => setOpenAccountToggle(!openAccountToggle)}
+          onClick={() => {
+            setOpenAccountToggle(!openAccountToggle);
+          }}
         />
         <ul
           className={
@@ -37,9 +39,9 @@ const NavigationLinks = ({ isAuthenticated, items, onLogOut }) => {
         >
           <li>
             {isAuthenticated ? (
-              <Link to="my-account">My Account</Link>
+              <Link to="../my-account">My Account</Link>
             ) : (
-              <Link to="auth">Login</Link>
+              <Link to="../auth">Login</Link>
             )}
           </li>
           {isAuthenticated ? <li onClick={() => onLogOut()}>LogOut</li> : null}

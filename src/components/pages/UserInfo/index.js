@@ -63,7 +63,7 @@ const UserInfo = ({ isAuthenticated }) => {
             className={active === "wishlist" ? "active" : ""}
             onClick={() => setActive("wishlist")}
           >
-            Wish List
+            Wishlist
           </h3>
           <span></span>
           <h3

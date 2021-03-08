@@ -20,17 +20,19 @@ const Wishlist = ({
   const wishlistElements =
     Object.keys(wishlist).length !== 0 ? (
       <>
-        {Object.keys(wishlist).map((key) => (
-          <WishlistItem
-            key={key}
-            item={wishlist[key]}
-            removeItem={() => onRemoveItem(userId, key, false)}
-            addToCartFromWishlist={() => {
-              onRemoveItem(userId, key, true);
-              onAddToCart(wishlist[key]);
-            }}
-          />
-        ))}
+        <ul className="wishlist__items">
+          {Object.keys(wishlist).map((key) => (
+            <WishlistItem
+              key={key}
+              item={wishlist[key]}
+              removeItem={() => onRemoveItem(userId, key, false)}
+              addToCartFromWishlist={() => {
+                onRemoveItem(userId, key, true);
+                onAddToCart(wishlist[key]);
+              }}
+            />
+          ))}
+        </ul>
         <div className="wishlist__clearItems">
           <button
             disabled={loading || !Object.keys(wishlist).length}

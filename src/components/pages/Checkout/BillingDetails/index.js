@@ -5,16 +5,9 @@ import { billingDetailsForm } from "../../../../constants/form";
 import KeyboardArrowLeftIcon from "@material-ui/icons/KeyboardArrowLeft";
 import { useHistory } from "react-router-dom";
 import { connect } from "react-redux";
-import { order } from "../../../../store/actions/authAction";
-import { clearCart } from "../../../../store/actions/cartAction";
+import { order } from "../../../../store/actions";
 
-const BillingDetails = ({
-  totalOrder,
-  onOrder,
-  userId,
-  cartItems,
-  onClearCart,
-}) => {
+const BillingDetails = ({ totalOrder, onOrder, userId, cartItems }) => {
   const { formElementsArray, inputChangedHandler, formData } = useForm(
     billingDetailsForm
   );
@@ -42,7 +35,6 @@ const BillingDetails = ({
       onSubmit={(e) => {
         e.preventDefault();
         onOrder(userId, createOrder());
-        onClearCart();
       }}
     >
       <h2>Billing Details</h2>
@@ -82,7 +74,6 @@ const BillingDetails = ({
 const mapDispatchToProps = (dispatch) => {
   return {
     onOrder: (userId, orderDetail) => dispatch(order(userId, orderDetail)),
-    onClearCart: () => dispatch(clearCart(true)),
   };
 };
 const mapStateToProps = (state) => {

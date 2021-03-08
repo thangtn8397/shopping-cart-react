@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 const WishlistItem = ({ item, removeItem, addToCartFromWishlist }) => {
   return (
-    <div className="wishlist-item">
+    <li className="wishlist-item">
       <span className="wishlist-item__removeIcon">
         <CloseIcon onClick={removeItem} />
       </span>
@@ -25,7 +25,7 @@ const WishlistItem = ({ item, removeItem, addToCartFromWishlist }) => {
       <p className="wishlist-item__removeText" onClick={removeItem}>
         Remove from wishlist
       </p>
-    </div>
+    </li>
   );
 };
 

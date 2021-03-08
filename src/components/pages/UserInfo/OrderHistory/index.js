@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { fetchOrders } from "../../../../store/actions/authAction";
+import { fetchOrders } from "../../../../store/actions";
 
 const OrderHistory = ({ orders, userId, onGetOrders }) => {
   useEffect(() => onGetOrders(userId), []);
@@ -26,7 +26,7 @@ const OrderHistory = ({ orders, userId, onGetOrders }) => {
 
 const mapStateToProps = (state) => {
   return {
-    orders: state.authReducer.orders,
+    orders: state.cartReducer.orders,
     userId: state.authReducer.userId,
   };
 };

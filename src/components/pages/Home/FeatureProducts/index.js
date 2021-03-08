@@ -15,7 +15,7 @@ const FeatureProducts = ({ featureProduct, onFetchProducts }) => {
         </div>
         <div className="feature-products__grid">
           {featureProduct.map((item) => (
-            <ProductItem product={item} />
+            <ProductItem product={item} key={item.id} />
           ))}
         </div>
         <button className="feature-products__btn btn">
@@ -28,6 +28,7 @@ const FeatureProducts = ({ featureProduct, onFetchProducts }) => {
 const mapStateToProps = (state) => {
   return {
     featureProduct: state.productsReducer.featureProducts,
+    wishlist: state.wishlistReducer.items,
   };
 };
 const mapDispatchToProps = (dispatch) => {

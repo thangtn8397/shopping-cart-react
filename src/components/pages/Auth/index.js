@@ -8,15 +8,7 @@ import { auth, setAuthRedirectPath } from "../../../store/actions/authAction";
 import { Redirect } from "react-router-dom";
 import { useForm } from "../../../hooks/useForm";
 
-const Auth = ({
-  onAuth,
-  loading,
-  isAuthenticated,
-  error,
-  path,
-  onSetAuthRedirectPath,
-  authRedirectPath,
-}) => {
+const Auth = ({ onAuth, loading, isAuthenticated, error, path }) => {
   const [isLogin, setIsLogin] = useState(true);
   const { formElementsArray, inputChangedHandler, formData } = useForm(
     authFormConfig

@@ -18,20 +18,21 @@ import { useHistory } from "react-router-dom";
 const ProductInfo = ({
   product,
   onAddToCart,
-  inWishlist,
   onAddToWishlist,
   userId,
   isAuthenticated,
   onSetAuthRedirectPath,
+  wishlist,
 }) => {
+  const array = wishlist ? Object.keys(wishlist) : [];
+  const check = array.includes(product.id);
   const [selectedColor, setSelectedColor] = useState(null);
   const [selectedQuantity, setSelectedQuantity] = useState(1);
-  const [isInWishlist, setIsInWishlist] = useState(inWishlist);
+  const [isInWishlist, setIsInWishlist] = useState(check);
   const history = useHistory();
 
   useEffect(() => {
     if (!selectedColor) setSelectedColor(product.colors[0]);
-    setIsInWishlist(inWishlist);
   }, []);
 
   const clickedWishlistIconHandle = () => {

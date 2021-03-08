@@ -68,13 +68,14 @@
   width: 100%;
   &__wrapper {
     padding: 1.25rem;
-    height: 50vh;
     width: 100%;
+  }
+  &__items {
     overflow-y: scroll;
-    margin-bottom: 1.875rem;
+    height: 60vh;
   }
   &__clearItems {
-    padding: 1.25rem;
+    padding: 0 1.25rem;
   }
   &-item {
     display: block;

@@ -3,29 +3,37 @@ import VisibilityIcon from "@material-ui/icons/Visibility";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import StarRateIcon from "@material-ui/icons/StarRate";
+import Modal from "../UI/Modal";
+import QuickviewProduct from "../QuickviewProduct";
 import { useHistory } from "react-router-dom";
 import { connect } from "react-redux";
-import { addToWishlist, setAuthRedirectPath } from "../../store/actions";
+import {
+  addToCart,
+  addToWishlist,
+  setAuthRedirectPath,
+} from "../../store/actions";
 import { selectedItem } from "../../helper";
 import { toast } from "react-toastify";
 
 const ProductItem = ({
   product,
   position,
-  addToCart,
   onAddToWishlist,
+  onAddToCart,
   userId,
   isAuthenticated,
-  inWishlist,
-  openQuickview,
   onSetAuthRedirectPath,
+  wishlist,
 }) => {
-  const [isWishlist, setIsWishlist] = useState();
+  const productKeysWishlist = wishlist ? Object.keys(wishlist) : [];
+  const check = productKeysWishlist.includes(product.id);
+  const [isWishlist, setIsWishlist] = useState(check);
+  const [openQuickview, setOpenQuickview] = useState(false);
   const history = useHistory();
 
   useEffect(() => {
-    setIsWishlist(inWishlist);
-  }, [inWishlist]);
+    setIsWishlist(check);
+  }, [check]);
 
   const clickedWishlistIcon = () => {
     if (isAuthenticated) {
@@ -40,7 +48,6 @@ const ProductItem = ({
       }
     } else {
       history.push("/auth");
-
       onSetAuthRedirectPath();
     }
   };
@@ -73,14 +80,16 @@ const ProductItem = ({
 
             <button
               className="product-item__actions--addtocart"
-              onClick={addToCart}
+              onClick={() =>
+                onAddToCart(selectedItem(product, 1, product.colors[0]))
+              }
             >
               <span>Add To Cart</span>
               <ShoppingCartIcon />
             </button>
             <button
               className="product-item__actions--quickview"
-              onClick={openQuickview}
+              onClick={() => setOpenQuickview(true)}
             >
               <span>
                 <VisibilityIcon />
@@ -102,6 +111,17 @@ const ProductItem = ({
           </span>
         </div>
       </div>
+      {openQuickview ? (
+        <Modal
+          isOpen={openQuickview}
+          closeModal={() => setOpenQuickview(false)}
+        >
+          <QuickviewProduct
+            product={product}
+            closeQuickview={() => setOpenQuickview(false)}
+          />
+        </Modal>
+      ) : null}
     </>
   );
 };
@@ -115,6 +135,9 @@ const mapStateToProps = (state) => {
 };
 const mapDispatchToProps = (dispatch) => {
   return {
+    onAddToCart: (item) => {
+      dispatch(addToCart(item));
+    },
     onAddToWishlist: (item, userId) => dispatch(addToWishlist(item, userId)),
     onSetAuthRedirectPath: () => dispatch(setAuthRedirectPath("/")),
   };

@@ -6,10 +6,10 @@ import Spinner from "../../UI/Spinner";
 import ShoppingCartOutlinedIcon from "@material-ui/icons/ShoppingCartOutlined";
 import { connect } from "react-redux";
 import { getTotalPrice } from "../../../helper";
-import { setAuthRedirectPath } from "../../../store/actions";
+import { clearCart, setAuthRedirectPath } from "../../../store/actions";
 import { Link } from "react-router-dom";
 
-const Checkout = ({ cartItems, isAuthenticated, loading }) => {
+const Checkout = ({ cartItems, loading }) => {
   const totalPrice = getTotalPrice(cartItems);
   const temp = cartItems.filter((item) => item.shipping === undefined);
   const shippingFee = temp.reduce((fee, item) => fee + 5.4, 0);
@@ -21,7 +21,7 @@ const Checkout = ({ cartItems, isAuthenticated, loading }) => {
       />
       <div className="checkout__itemsDetails">
         {cartItems.map((item) => (
-          <ItemDetail item={item} />
+          <ItemDetail key={item.id} item={item} />
         ))}
         <hr />
         <article className="cart__bill">
@@ -48,6 +48,12 @@ const Checkout = ({ cartItems, isAuthenticated, loading }) => {
     <Spinner />
   );
 
+  //      useEffect(() => {
+  //      onClearItem()
+  //      setTimeout(())
+  //
+  //      }, [!isOrdered]);
+  //
   return (
     <div className="checkout">
       <PageHero products={false} link="checkout" />
@@ -73,13 +79,14 @@ const Checkout = ({ cartItems, isAuthenticated, loading }) => {
 const mapStateToProps = (state) => {
   return {
     cartItems: state.cartReducer.items,
-    isAuthenticated: state.authReducer.token !== null,
-    loading: state.authReducer.loading,
+    loading: state.cartReducer.loading,
+    isOrdered: state.authReducer.isOrdered,
   };
 };
 const mapDispatchToProps = (dispatch) => {
   return {
     onSetAuthRedirectPath: (path) => dispatch(setAuthRedirectPath(path)),
+    onClearItem: () => dispatch(clearCart()),
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Checkout);

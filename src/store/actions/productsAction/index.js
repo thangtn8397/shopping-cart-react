@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from "../../../axios";
 import {
   FETCH_PRODUCTS_START,
   FETCH_PRODUCTS_SUCCESS,
@@ -36,7 +36,7 @@ export const fetchProducts = () => {
   return (dispatch) => {
     dispatch(fetchProductsStart());
     axios
-      .get("https://ecommerce-31a69.firebaseio.com/products.json")
+      .get("/products.json")
       .then((res) => {
         dispatch(fetchProductsSuccess(res.data));
       })

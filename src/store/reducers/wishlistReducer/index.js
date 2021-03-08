@@ -12,7 +12,7 @@ import {
 } from "../../../constants";
 
 const initialState = {
-  items: null,
+  items: {},
   error: null,
   loading: false,
 };
@@ -25,12 +25,9 @@ export const wishlistReducer = (state = initialState, action) => {
         loading: true,
       };
     case ADD_TO_WISHLIST_SUCCESS:
-      let temp = {};
-      temp[action.item.id] = action.item;
-      const newItems = Object.assign(state.items, temp);
       return {
         ...state,
-        items: newItems,
+        items: { ...state.items, [action.item.id]: action.item },
         loading: false,
       };
     case ADD_TO_WISHLIST_FAILED: {

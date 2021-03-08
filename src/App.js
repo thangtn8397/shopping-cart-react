@@ -33,7 +33,6 @@ function App({ onCheckAuthState, onInitWishlist, userId, cartItems }) {
   return (
     <Layout>
       <div className="App">
-        <Navigation />
         <Switch>
           <Route exact path="/" component={Home} />
           <Route exact path="/products" component={Products} />
@@ -45,7 +44,6 @@ function App({ onCheckAuthState, onInitWishlist, userId, cartItems }) {
           <Route exact path="/about" component={About} />
           <Route path="/*" component={Error} />
         </Switch>
-        <Footer />
       </div>
     </Layout>
   );
