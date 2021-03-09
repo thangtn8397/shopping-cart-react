@@ -1,20 +1,19 @@
 import { useEffect } from "react";
-import { Switch, Route } from "react-router-dom";
-import Navigation from "./components/Navigation";
-import Home from "./components/pages/Home";
-import Products from "./components/pages/Products";
-import Cart from "./components/pages/Cart";
-import Auth from "./components/pages/Auth";
-import SingleProduct from "./components/pages/SingleProduct";
+import Home from "./pages/Home";
+import Products from "./pages/Products";
+import Cart from "./pages/Cart";
+import Auth from "./pages/Auth";
+import SingleProduct from "./pages/SingleProduct";
 import Layout from "./components/Layout";
-import "./styles/style.scss";
-import UserInfo from "./components/pages/UserInfo";
-import { connect } from "react-redux";
-import { checkAuthState, fetchItemWishlist } from "./store/actions";
-import Checkout from "./components/pages/Checkout";
-import Footer from "./components/Footer";
-import About from "./components/pages/About";
+import UserInfo from "./pages/UserInfo";
+import Checkout from "./pages/Checkout";
+import About from "./pages/About";
 import Error from "./components/Error";
+import { checkAuthState, fetchItemWishlist } from "./store/actions";
+import { Switch, Route } from "react-router-dom";
+import { connect } from "react-redux";
+
+import "./styles/style.scss";
 
 function App({ onCheckAuthState, onInitWishlist, userId, cartItems }) {
   useEffect(() => {
