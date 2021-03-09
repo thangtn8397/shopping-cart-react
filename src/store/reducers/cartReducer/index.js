@@ -35,12 +35,15 @@ export const cartReducer = (state = initialState, action) => {
           item.id === action.item.id &&
           item.selectedColor === action.item.selectedColor
       )[0];
+      console.log(tempItem);
       if (tempItem) {
         const newQuantity = tempItem.quantity + action.item.quantity;
         return {
           ...state,
           items: state.items.map((item) =>
-            item.id === tempItem.id ? { ...item, quantity: newQuantity } : item
+            item.cartItemId === tempItem.cartItemId
+              ? { ...item, quantity: newQuantity }
+              : item
           ),
         };
       } else {
