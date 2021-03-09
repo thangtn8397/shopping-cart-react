@@ -18,7 +18,10 @@
     display: flex;
     &-image {
       width: 20%;
-      height: auto;
+      height: 2rem;
+      @include breakpoint-up(medium) {
+        height: 5rem;
+      }
 
       &:not(:last-child) {
         padding-right: 0.675rem;
