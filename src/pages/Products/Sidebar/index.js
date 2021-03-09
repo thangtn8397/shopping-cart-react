@@ -18,12 +18,7 @@ const Sidebar = ({ onUpdateFilter, onClearFilter, products, filters }) => {
   const companies = ["all", ...getUniquevalue(products, "company")];
   const colors = ["all", ...getUniquevalue(products, "colors")];
   return (
-    <form
-      className="sidebar"
-      onSubmit={(e) => {
-        e.preventDefault();
-      }}
-    >
+    <form className="sidebar">
       <div className="sidebar__searchbar">
         <input
           type="text"

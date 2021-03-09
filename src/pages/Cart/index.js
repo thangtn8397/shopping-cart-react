@@ -74,10 +74,10 @@ function Cart({
             <button
               className="cart__bill-btnProceed"
               onClick={() => {
-                history.push("/checkout");
                 if (!isAuthenticated) {
+                  history.push("/auth");
                   onSetAuthRedirectPath("/checkout");
-                }
+                } else history.push("/checkout");
               }}
             >
               Proceed to checkout
