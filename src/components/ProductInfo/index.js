@@ -95,7 +95,10 @@ const ProductInfo = ({
               ))}
             </div>
             <div className="product-info__options-quantity">
-              <button onClick={() => setSelectedQuantity(selectedQuantity - 1)}>
+              <button
+                disabled={selectedQuantity <= 1}
+                onClick={() => setSelectedQuantity(selectedQuantity - 1)}
+              >
                 <RemoveIcon />
               </button>
               <span>{selectedQuantity}</span>

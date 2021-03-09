@@ -11,6 +11,11 @@ const NavigationLinks = ({ isAuthenticated, items, onLogOut }) => {
   const [openCheckoutSummary, setOpenCheckoutSummary] = useState(false);
   const [openAccountToggle, setOpenAccountToggle] = useState(false);
   const history = useHistory();
+
+  const getTotalItem = (array) => {
+    return array.reduce((amount, item) => amount + item.quantity, 0);
+  };
+
   return (
     <div className="navigation-links">
       {isAuthenticated ? (
@@ -56,7 +61,7 @@ const NavigationLinks = ({ isAuthenticated, items, onLogOut }) => {
           className="hide-for-desktop"
           onClick={() => history.push("/cart")}
         />
-        {items.length > 0 ? <span>{items.length}</span> : null}
+        {items.length > 0 ? <span>{getTotalItem(items)}</span> : null}
         <CheckoutSummary items={items} open={openCheckoutSummary} />
       </div>
     </div>
