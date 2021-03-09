@@ -20,12 +20,13 @@
   }
   &-item {
     display: grid;
-    grid-template-columns: 200px auto auto auto;
+    grid-template-columns: 160px auto auto auto;
     border-bottom: 1px solid #ccc;
     padding: 2rem 0;
-    column-gap: 1.25rem;
+    column-gap: 0.25rem;
     @include breakpoint-up(medium) {
       grid-template-columns: 2fr 1fr 1fr 1fr auto;
+      column-gap: 1.25rem;
     }
     > div:not(:first-child) {
       align-self: center;
@@ -33,12 +34,17 @@
     }
     &__detail {
       display: flex;
-      align-items: center;
+      align-items: flex-start;
+
       img {
-        height: 80px;
-        width: 130px;
+        height: 70px;
+        width: 80px;
         border-radius: 0.25rem;
         margin-right: 1.25rem;
+        @include breakpoint-up(medium) {
+          width: 130px;
+          height: 80px;
+        }
       }
     }
     &__name {
@@ -48,17 +54,21 @@
     &__color {
       display: flex;
       align-items: center;
-      font-size: 14px;
+      font-size: 0.75rem;
       font-weight: 400;
       color: $darkBlue;
       span {
         margin-left: 0.675rem;
+      }
+      @include breakpoint-up(medium) {
+        font-size: 0.875rem;
       }
     }
     &__priceSmall {
       color: $indianred;
       font-weight: 400;
       margin-top: 0.675rem;
+      font-size: 0.75rem;
       @include breakpoint-up(medium) {
         display: none;
       }
@@ -76,9 +86,12 @@
       justify-content: space-between;
       align-items: center;
       font-weight: 600;
-      padding: 0.675rem 6px;
+      padding: 0.25rem;
       > p {
-        margin: 0 0.675rem;
+        margin: 0;
+        @include breakpoint-up(medium) {
+          margin: 0 0.675rem;
+        }
       }
       > button {
         background-color: transparent;

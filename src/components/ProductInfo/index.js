@@ -94,15 +94,7 @@ const ProductInfo = ({
                 </span>
               ))}
             </div>
-            <div className="product-info__options-size">
-              <p>Size</p>
-              <span>X</span>
-              <span>M</span>
-              <span>XL</span>
-            </div>
-          </div>
-          <div className="product-info__addtocart">
-            <div className="product-info__addtocart-quantity">
+            <div className="product-info__options-quantity">
               <button onClick={() => setSelectedQuantity(selectedQuantity - 1)}>
                 <RemoveIcon />
               </button>
@@ -111,6 +103,8 @@ const ProductInfo = ({
                 <AddIcon />
               </button>
             </div>
+          </div>
+          <div className="product-info__addtocart">
             <button
               disabled={!selectedColor}
               className="product-info__addtocart-btn"

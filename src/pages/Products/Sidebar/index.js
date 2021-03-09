@@ -18,7 +18,7 @@ const Sidebar = ({ onUpdateFilter, onClearFilter, products, filters }) => {
   const companies = ["all", ...getUniquevalue(products, "company")];
   const colors = ["all", ...getUniquevalue(products, "colors")];
   return (
-    <form className="sidebar">
+    <div className="sidebar">
       <div className="sidebar__searchbar">
         <input
           type="text"
@@ -110,7 +110,7 @@ const Sidebar = ({ onUpdateFilter, onClearFilter, products, filters }) => {
         />
       </div>
       <button onClick={() => onClearFilter()}>clear filter</button>
-    </form>
+    </div>
   );
 };
 

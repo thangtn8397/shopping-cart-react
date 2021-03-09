@@ -5,20 +5,24 @@
   position: relative;
   &__wrapper {
     padding: 1.25rem;
-    display: flex;
-    align-items: center;
-    font-size: 2rem;
+    font-size: 0.875rem;
     font-weight: 600;
     color: $indianred;
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
+    @include breakpoint-up(medium) {
+      font-size: 1.2rem;
+    }
     a {
       color: $indianred;
     }
   }
   &__slash {
-    margin: 0 1.25rem;
+    margin: 0 0.675rem;
+    @include breakpoint-up(medium) {
+      margin: 0 1.25rem;
+    }
   }
   &__link {
     color: #453227;

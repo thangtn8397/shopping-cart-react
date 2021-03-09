@@ -10,7 +10,7 @@
   min-height: 60vh;
   display: grid;
   grid-template-columns: 1fr;
-  padding: 0 1.25rem;
+  padding: 3rem 1.25rem;
   @include breakpoint-up(large) {
     grid-template-columns: 1fr 1fr;
   }

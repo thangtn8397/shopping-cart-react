@@ -90,8 +90,9 @@
     display: flex;
     justify-content: flex-start;
     margin-bottom: 1.25rem;
+
     &-colors {
-      flex: 1;
+      margin-right: 1.25rem;
       p {
         margin-bottom: 0.675rem;
       }
@@ -107,11 +108,14 @@
         }
       }
     }
-    &-size {
-      p {
-        margin-bottom: 0.675rem;
+    &-quantity {
+      border: 1px solid #ccc;
+      display: flex;
+      align-items: center;
+      button {
+        background-color: transparent;
+        color: $darkBlue;
       }
-      flex: 3;
     }
   }
 
@@ -124,19 +128,10 @@
     align-items: center;
     margin-bottom: 1.25rem;
     &-btn {
-      margin: 0 1.25rem;
       width: 160px;
       height: 3.25rem;
     }
-    &-quantity {
-      border: 1px solid #ccc;
-      display: flex;
-      align-items: center;
-      button {
-        background-color: transparent;
-        color: $darkBlue;
-      }
-    }
+
     &-wishlist {
       background-color: transparent;
     }

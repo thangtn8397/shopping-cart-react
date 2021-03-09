@@ -15,7 +15,7 @@ const FeatureProducts = ({ featureProduct, onFetchProducts }) => {
         </div>
         <div className="feature-products__grid">
           {featureProduct.map((item) => (
-            <ProductItem product={item} key={item.id} />
+            <ProductItem product={item} key={item.id} position={item.index} />
           ))}
         </div>
         <button className="feature-products__btn btn">

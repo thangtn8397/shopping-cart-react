@@ -1,11 +1,11 @@
 .modal {
   position: fixed;
-  top: 0;
+  top: 8rem;
   left: 50%;
   transform: translateX(-50%);
   z-index: 12;
   width: 90%;
-  height: 100%;
+  height: calc(100% - 9rem);
   background-color: #fff;
   display: none;
   overflow-y: scroll;
@@ -17,9 +17,7 @@
     display: none;
   }
   @include breakpoint-up(medium) {
-    top: 10%;
     width: 80%;
-    height: 80%;
   }
   @include breakpoint-up(large) {
     max-width: 80rem;

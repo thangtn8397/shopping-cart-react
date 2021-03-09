@@ -18,6 +18,8 @@
     display: flex;
     &-image {
       width: 20%;
+      height: auto;
+
       &:not(:last-child) {
         padding-right: 0.675rem;
       }
